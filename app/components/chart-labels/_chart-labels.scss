@@ -4,7 +4,7 @@
 }
 
 .labels {
-  font-family: "proxima-nova",sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -12,12 +12,10 @@
 }
 
 .donutText, .chartDay, .slice {
-  textpath, text {
     color: #fff;
     opacity: 0.85;
-    font-family: "proxima-nova",sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 10px;
-  }
 }

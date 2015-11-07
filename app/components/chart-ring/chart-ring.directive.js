@@ -168,23 +168,12 @@ export default chartRing => {
           });
       }
 
-      function arcTween(finish) {
-        var start = {
-          startAngle: 0,
-          endAngle: 0
-        };
-        var i = d3.interpolate(start, finish);
-        return function (d) {
-          return arc(i(d));
-        };
-      }
-
       function addMonthLabel() {
         foreground.append('g')
           .attr('class', 'labels');
 
         var text = foreground.select('.labels').selectAll('text')
-          .data(pie(dataset));
+          .data([1]);
 
         text.enter()
           .append('text')
