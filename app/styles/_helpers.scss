@@ -1,0 +1,20 @@
+// Helpers
+// ----------------------------------------
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.img-responsive {
+    max-width:100% !important;
+    height:auto;
+    display:block;
+}

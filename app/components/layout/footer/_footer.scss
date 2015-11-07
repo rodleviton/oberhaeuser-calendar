@@ -1,0 +1,48 @@
+#footer.theme-facets {
+  font-family: "raleway",sans-serif;
+  font-style: normal;
+  font-weight: 400;
+
+  &.section {
+    .footer-top {
+      background: #fff;
+      .container {
+        padding-bottom: 0;
+      }
+    }
+    .footer-bottom {
+      background: #fff;
+      p {
+        color: $gray-dark;
+        text-transform: uppercase;
+        margin: 0;
+      }
+      a,
+      a:visited {
+        color: $gray-dark;
+        text-decoration: none;
+      }
+    }
+  }
+  &.section {
+    text-align: center;
+    .social-icons {
+      @extend .clearfix;
+      margin: 0 auto;
+      width: 240px;
+    }
+    @media (min-width: $screen-sm-min) {
+      .social-icons {
+        width: 280px;
+      }
+    }
+    .github {
+      display: block;
+      margin: 0 auto;
+      width: 48px;
+      height: 49px;
+      background: url("../themes/facets/layout/footer/images/github.png") no-repeat;
+      background-size: 100%;
+    }
+  }
+}

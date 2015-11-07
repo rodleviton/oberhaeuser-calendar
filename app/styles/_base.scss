@@ -1,0 +1,43 @@
+*, *:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html,
+body {
+  overflow-x: hidden;
+  min-width: 320px;
+  height: 100%;
+}
+p {
+  margin-bottom: ($base-padding / 2);
+  font-size: 0.857em;
+}
+.callout {
+  border-left: 3px solid $gray-dark;
+  padding-left: 20px;
+}
+
+// Grid
+.row {
+  @extend .clearfix;
+}
+.col-6 {
+  float: none;
+  width: 100%;
+}
+.col-4 {
+  float: none;
+  width: 100%;
+}
+@media (min-width: $screen-sm-min) {
+  .col-6 {
+    float: left;
+    width: 50%;
+  }
+  .col-4 {
+    float: left;
+    width: 33%;
+  }
+}

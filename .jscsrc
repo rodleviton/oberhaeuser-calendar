@@ -1,0 +1,7 @@
+{
+  "preset": "google",
+  "esnext": true,
+  "maximumLineLength": 140,
+  "disallowSpacesInAnonymousFunctionExpression": null,
+  "excludeFiles": ["node_modules/**"]
+}

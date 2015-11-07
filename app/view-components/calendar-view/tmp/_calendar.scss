@@ -1,0 +1,49 @@
+body.theme-calendar {
+  background: #29272c;
+
+  .section {
+    height: 100%;
+  }
+}
+#themeCalendar {
+  height: 100%;
+  display: block;
+  border: 20px solid #fff;
+  padding-bottom: 100px;
+  h1 {
+    font-family: "proxima-nova", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2em;
+  }
+  .section {
+    width: 100%;
+    .container {
+      @extend .clearfix;
+      position: relative;
+      padding: 20px 10px;
+      width: 100%;
+      max-width: 860px;
+      height: 100%;
+      margin: 0 auto;
+    }
+  }
+  .calendar {
+    width: 1000px;
+    height: 1000px;
+    position: relative;
+    margin-left: -85px;
+  }
+}
+
+#calendarLogo {
+  background: #000;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -100px;
+}

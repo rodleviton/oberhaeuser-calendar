@@ -1,0 +1,55 @@
+body {
+  background: #29272c;
+}
+.section {
+  height: 100%;
+}
+#themeCalendar {
+  height: 100%;
+  display: block;
+  border: 20px solid #fff;
+  padding-bottom: 100px;
+  .section {
+    width: 100%;
+    .container {
+      @extend .clearfix;
+      position: relative;
+      padding: 20px 10px;
+      width: 100%;
+      max-width: 860px;
+      height: 100%;
+      margin: 0 auto;
+    }
+  }
+  .calendar {
+    width: 1000px;
+    height: 1000px;
+    position: relative;
+    margin-left: -85px;
+  }
+}
+#calendarLogo {
+  background: #000;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -100px;
+
+  // Text
+  padding: 52px 38px;
+  font-size: 1.5em;
+  line-height: 1.25em;
+  font-family: "raleway",sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: none;
+  color: #fff;
+  strong {
+    font-weight: 700;
+  }
+}

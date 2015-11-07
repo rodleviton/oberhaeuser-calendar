@@ -1,0 +1,22 @@
+#calendarHeader.theme-calendar {
+  padding: 30px 40px;
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-family: "raleway",sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 3em;
+    letter-spacing: 1px;
+    text-transform: none;
+    color: #fff;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+}
