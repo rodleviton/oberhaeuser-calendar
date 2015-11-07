@@ -123,7 +123,15 @@ export default chartLabels => {
         .append('textPath')
         .attr('startOffset', '50%')
         .style('text-anchor', 'middle')
-        .style('fill', '#fff')
+        .style('fill', function (d, i) {
+          var color = '#bbb';
+
+          if (d.data.name === DAYS_OF_WEEK[0] || d.data.name === DAYS_OF_WEEK[6]) {
+            return '#999';
+          }
+
+          return color;
+        })
         .style('opacity', 0)
         .attr('xlink:href', function (d, i) {
           return '#donutArc' + i;
