@@ -1,12 +1,10 @@
 <div id="themeCalendar">
   <calendar-header year="vm.activeYear"></calendar-header>
   <section class="section">
-    <div class="container">
-        <div class="calendar">
-          <div id="calendarLogo"><strong>oberhaeuser<br />.info</strong>rmation<br />&amp; interface<br />design</div>
-          <div labels></div>
-          <div chart-ring ng-repeat="month in vm.months" index="$index" config="month"></div>
-        </div>
+    <div class="calendar">
+      <div id="calendarLogo"><strong>oberhaeuser<br />.info</strong>rmation<br />&amp; interface<br />design</div>
+      <div labels></div>
+      <div chart-ring ng-repeat="month in vm.months" index="$index" config="month"></div>
     </div>
   </section>
 </div>

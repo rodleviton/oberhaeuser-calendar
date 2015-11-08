@@ -7,7 +7,7 @@ body {
 #themeCalendar {
   height: 100%;
   display: block;
-  border: 20px solid #fff;
+  // border: 20px solid #fff;
   padding-bottom: 100px;
   .section {
     width: 100%;
@@ -22,10 +22,10 @@ body {
     }
   }
   .calendar {
-    width: 1000px;
-    height: 1000px;
+    width: 920px;
+    height: 920px;
     position: relative;
-    margin-left: -85px;
+    margin: 0 auto;
   }
 }
 #calendarLogo {

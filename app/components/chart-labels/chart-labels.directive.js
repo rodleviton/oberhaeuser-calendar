@@ -29,8 +29,18 @@ export default chartLabels => {
         bottom: 20
       };
 
-      var width = 1100;
-      var height = 1100;
+      // Constants
+      var DISPLAY_SEGMENTS = 39; // Total segments to display on screen
+      var TOTAL_SEGMENTS = 48;
+      var BASE_UNIT = 920;
+
+      // Vars
+      var dayOfWeekIndex = 0;
+      var donutData = [];
+      var width = (BASE_UNIT + 100);
+      var height = (BASE_UNIT + 100);
+      var innerRadius = ((BASE_UNIT / 2) - 20);
+      var outerRadius = (BASE_UNIT / 2);
 
       var DAYS_OF_WEEK = [
         'Sunday',
@@ -56,11 +66,6 @@ export default chartLabels => {
       ///////////////////// Data &  Scales /////////////////////////
       //////////////////////////////////////////////////////////////
 
-      var donutData = [];
-      var DISPLAY_SEGMENTS = 39; // Total segments to display on screen
-      var TOTAL_SEGMENTS = 48;
-      var dayOfWeekIndex = 0;
-
       for (var i = 0; i <= TOTAL_SEGMENTS; i++) {
 
         // Increment first and start calendar off at Monday
@@ -78,8 +83,8 @@ export default chartLabels => {
 
       //Create an arc function
       var arc = d3.svg.arc()
-        .innerRadius(480)
-        .outerRadius(500);
+        .innerRadius(innerRadius)
+        .outerRadius(outerRadius);
 
       var pie = d3.layout.pie()
         .padAngle(0.005)

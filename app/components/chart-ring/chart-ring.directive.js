@@ -18,7 +18,6 @@ export default chartRing => {
         config: '=',
         index: '='
       },
-      template: require('./chart-ring.tmpl.html'),
       link: link
     };
 
@@ -35,6 +34,7 @@ export default chartRing => {
       var TOTAL_SEGMENTS = 48; // Total number of segments for each chart ring
       var DURATION = 1000;
       var DELAY = 1000;
+      var BASE_UNIT = 920;
 
       // VARS
       var totalOffset = MAX_DAYS - scope.config.days;
@@ -47,11 +47,11 @@ export default chartRing => {
       var pie;
       var arc;
       var offset = ((scope.index + 1) * 22);
-      var width = 1000 - offset;
-      var height = 1000 - offset;
+      var width = BASE_UNIT - offset;
+      var height = BASE_UNIT - offset;
       var radius = Math.min(width, height) / 2;
-      var innerRadius = 480 - offset;
-      var outerRadius = 500 - offset;
+      var innerRadius = ((BASE_UNIT / 2) - 20) - offset;
+      var outerRadius = (BASE_UNIT / 2) - offset;
       var t = 2 * Math.PI;
 
       function setup() {
