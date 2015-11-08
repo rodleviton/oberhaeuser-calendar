@@ -32,7 +32,9 @@ export default chartRing => {
       var DAYS_OF_WEEK = 7;
       var MAX_DAYS = 31;
       var DISPLAY_SEGMENTS = 39; // Total segments to display on screen
-      var TOTAL_SEGMENTS = 48;
+      var TOTAL_SEGMENTS = 48; // Total number of segments for each chart ring
+      var DURATION = 1000;
+      var DELAY = 1000;
 
       // VARS
       var totalOffset = MAX_DAYS - scope.config.days;
@@ -41,8 +43,7 @@ export default chartRing => {
       var dayOfWeekIndex = startOffset;
       var currentDay = 0;
       var dataset = [];
-
-      var foreground;
+      var chartRing;
       var pie;
       var arc;
       var offset = ((scope.index + 1) * 22);
@@ -54,25 +55,44 @@ export default chartRing => {
       var t = 2 * Math.PI;
 
       function setup() {
-        configureChart();
-        createChartRings();
-        createTextPaths();
+        // Chart
+        configureDataset();
+
+        createBackgroundChartRing();
+        addBackgroundChartSegments();
+        createChartRing();
+        addChartSegments();
+
+        // Text
         addMonthLabel();
+        addDayLabelTextPath();
         addDayLabel();
+
+        // Animations
+        animateIn(chartRing);
       }
 
-      function configureChart() {
+      ///////////////////////////////////////////////////////////
+      // CONFIGURATION
+      ///////////////////////////////////////////////////////////
+
+      /**
+       * Configure calendar dataset
+       */
+      function configureDataset() {
         for (var i = 0; i <= TOTAL_SEGMENTS; i++) {
           if (i < startOffset) {
+            // Shade offset segments same color as chartRing
             dataset.push({
               count: (100 / 40),
               color: COLOR_FOREGROUND
             });
           } else if (i < (scope.config.days + startOffset)) {
-
+            // Apply color to days of month segments
             var segmentColor;
 
-            // Color
+            // Determine if current segments are Saturday or Sunday
+            // and shade accordingly
             if ((dayOfWeekIndex === (DAYS_OF_WEEK - 2)) || (dayOfWeekIndex === (DAYS_OF_WEEK - 1))) {
               segmentColor = shadeColor(scope.config.color, -0.25);
             } else {
@@ -96,6 +116,8 @@ export default chartRing => {
               color: COLOR_FOREGROUND
             });
           } else {
+            // Do not configure any fill color for
+            // segments beyond days in month
             dataset.push({
               count: (100 / 40),
               color: 'none'
@@ -105,7 +127,11 @@ export default chartRing => {
 
       }
 
-      function createChartRings() {
+      ///////////////////////////////////////////////////////////
+      // CREATE CHART
+      ///////////////////////////////////////////////////////////
+
+      function createChartRing() {
         angular.element(element).addClass('calendar-chart-ring');
         angular.element(element).css('margin-left', (offset / 2) + 'px');
         angular.element(element).css('margin-top', (offset / 2) + 'px');
@@ -120,88 +146,117 @@ export default chartRing => {
             return d.count;
           }).sort(null);
 
-        // Create the SVG container, and apply a transform such that the origin is the
-        // center of the canvas. This way, we don't need to position arcs individually.
-        foreground = d3.select(element[0]).append('svg')
+        chartRing = d3.select(element[0]).append('svg')
           .attr('width', width)
           .attr('height', height)
           .append('g')
           .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
       }
 
-      /****************************************************/
-      // ** LABELS ** //
-      /****************************************************/
-
-      function createTextPaths() {
-        foreground.selectAll('path')
+      function addChartSegments() {
+        chartRing.selectAll('path')
           .data(pie(dataset))
           .enter()
           .append('path')
           .attr('d', arc)
           .attr('class', 'chartRing')
           .attr('fill', function (d) {
-            return COLOR_FOREGROUND;
-          })
-          .each(function (d, i) {
-            //Search pattern for everything between the start and the first capital L
-            var firstArcSection = /(^.+?)L/;
-
-            //Grab everything up to the first Line statement
-            var newArc = firstArcSection.exec(d3.select(this).attr('d'))[1];
-
-            //Replace all the comma's so that IE can handle it
-            newArc = newArc.replace(/,/g, ' ');
-
-            //Create a new invisible arc that the text can flow along
-            foreground.append('path')
-              .attr('class', 'hiddenChartRing')
-              .attr('id', 'chartRing' + scope.config.name + i)
-              .attr('d', newArc)
-              .style('fill', 'none');
-          })
-          .transition()
-          .duration(1500)
-          .delay(1000 + (scope.index * 100))
-          .attr('fill', function (d) {
             return d.data.color;
           });
       }
 
+      var backgroundArc;
+      var backgroundPie;
+      var backgroundChartRing;
+
+      function createBackgroundChartRing() {
+        angular.element(element).addClass('calendar-chart-ring');
+
+        backgroundArc = d3.svg.arc()
+          .innerRadius(innerRadius)
+          .outerRadius(outerRadius);
+
+        backgroundPie = d3.layout.pie()
+          .padAngle(0.005)
+          .value(function (d) {
+            return d.count;
+          }).sort(null);
+
+        backgroundChartRing = d3.select(element[0]).append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
+          .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+      }
+
+      function addBackgroundChartSegments() {
+        backgroundChartRing.selectAll('path')
+          .data(backgroundPie(dataset))
+          .enter()
+          .append('path')
+          .attr('d', backgroundArc)
+          .attr('class', 'backgroundChartRing')
+          .attr('fill', function(d, i) {
+            var fillColor = 'none';
+            if (i <= DISPLAY_SEGMENTS) {
+              fillColor = COLOR_FOREGROUND;
+            }
+
+            return fillColor;
+          });
+      }
+
+      ///////////////////////////////////////////////////////////
+      // TEXT PATHS
+      ///////////////////////////////////////////////////////////
       function addMonthLabel() {
-        foreground.append('g')
+        // Append label group
+        chartRing.append('g')
           .attr('class', 'labels');
 
-        var text = foreground.select('.labels').selectAll('text')
-          .data([1]);
+        // Configure label
+        chartRing.select('.labels').selectAll('text')
+          .data([scope.config.name])
+          .enter()
+            .append('text')
+            .attr('dx', '-20')
+            .style('text-anchor', 'end')
+            .attr('dy', (outerRadius * -1) + 13) // vertical-align
+            .attr('fill', scope.config.color)
+            .text(scope.config.name);
+      }
 
-        text.enter()
-          .append('text')
-          .attr('dx', '-20')
-          .style('text-anchor', 'end')
-          .attr('dy', (outerRadius * -1) + 13) // vertical-align
-          .attr('fill', scope.config.color)
-          .text(scope.config.name)
-          .style('opacity', 0)
-          .transition()
-          .duration(1500)
-          .delay(1000 + (scope.index * 100))
-          .style('opacity', 1);
+      function addDayLabelTextPath() {
+        chartRing.selectAll('path')
+        .each(function (d, i) {
+          //Search pattern for everything between the start and the first capital L
+          var firstArcSection = /(^.+?)L/;
+
+          //Grab everything up to the first Line statement
+          var newArc = firstArcSection.exec(d3.select(this).attr('d'))[1];
+
+          //Replace all the comma's so that IE can handle it
+          newArc = newArc.replace(/,/g, ' ');
+
+          //Create a new invisible arc that the text can flow along
+          chartRing.append('path')
+            .attr('id', 'chartRing' + scope.config.name + i)
+            .attr('d', newArc)
+            .style('fill', 'none');
+        });
       }
 
       // Append the label
       function addDayLabel() {
-        foreground.selectAll('.chartDay')
+        chartRing.selectAll('.chartDay')
           .data(pie(dataset))
           .enter().append('text')
           .attr('class', 'chartDay')
           .attr('dy', 13) //Move the text down
           .append('textPath')
-          .attr('transform', 'translate(73.7382973492235,97.82082346840828)')
           .attr('startOffset', '50%')
           .style('text-anchor', 'middle')
           .style('fill', '#fff')
-          .style('opacity', 0)
           .attr('xlink:href', function (d, i) {
             return '#chartRing' + scope.config.name + i;
           })
@@ -218,13 +273,43 @@ export default chartRing => {
             }
 
             return text;
-          })
-          .transition()
-          .duration(1500)
-          .delay(1000)
-          .style('opacity', 1);
+          });
       }
 
+      ///////////////////////////////////////////////////////////
+      // ANIMATIONS
+      ///////////////////////////////////////////////////////////
+
+      /**
+       * Animate chart ring into view
+       */
+      function animateIn(element) {
+        element
+            .style('opacity', 0)
+            .transition()
+            .duration(DURATION)
+            .delay(DELAY + (scope.index * 100))
+            .style('opacity', 1);
+      }
+
+      /**
+       * Animate chart ring out of view
+       */
+      function animateOut(element) {
+        element
+            .style('opacity', 1)
+            .transition()
+            .duration(DURATION)
+            .delay(DELAY + (scope.index * 100))
+            .style('opacity', 0);
+      }
+
+      /**
+       * Helper method to darken or lighten color
+       * @param  {string} color [HEX color code]
+       * @param  {int} percent [percentage to lighten or darken base color]
+       * @return {string} [Calculated HEX color code]
+       */
       function shadeColor(color, percent) {
         var f = parseInt(color.slice(1), 16);
         var t = percent < 0 ? 0 : 255;
@@ -237,6 +322,7 @@ export default chartRing => {
           .toString(16).slice(1);
       }
 
+      // Initialise chart ring
       setup();
     }
   });
