@@ -163,19 +163,19 @@ export default chartRing => {
           .attr('fill', function (d) {
             return d.data.color;
           });
-          // .on('mouseover', function(d) {
-          //   console.log(this);
-          //   d3.select(this).transition()
-          //     .duration(100)
-          //     .attr('fill', '#fff');
-          // })
-          // .on('mouseout', function(d) {
-          //   d3.select(this).transition()
-          //     .duration(100)
-          //     .attr('fill', function (d) {
-          //       return d.data.color;
-          //     })
-          // });
+        // .on('mouseover', function(d) {
+        //   console.log(this);
+        //   d3.select(this).transition()
+        //     .duration(100)
+        //     .attr('fill', '#fff');
+        // })
+        // .on('mouseout', function(d) {
+        //   d3.select(this).transition()
+        //     .duration(100)
+        //     .attr('fill', function (d) {
+        //       return d.data.color;
+        //     })
+        // });
       }
 
       var backgroundArc;
