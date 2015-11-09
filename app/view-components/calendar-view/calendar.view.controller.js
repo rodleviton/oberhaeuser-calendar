@@ -26,7 +26,7 @@ export default calendarViewComponent => {
       return new Date(year, month, 0).getDay();
     }
 
-    function activate() {
+    function configureCalendar() {
       vm.months = require('./config/calendar.json');
 
       // Calculate start day index of month
@@ -36,6 +36,15 @@ export default calendarViewComponent => {
 
       // Calculate days in February
       vm.months[1].days = vm.getDaysInFebruary(vm.activeYear);
+    }
+
+    function configureHolidays() {
+      vm.federalHolidays = require('./config/federal-holidays.json');
+    }
+
+    function activate() {
+      configureCalendar();
+      configureHolidays();
     }
 
   }

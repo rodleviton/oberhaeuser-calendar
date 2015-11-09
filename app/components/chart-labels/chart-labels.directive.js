@@ -2,9 +2,9 @@ export default chartLabels => {
 
   var d3 = require('d3');
 
-  chartLabels.$inject = ['$timeout'];
+  chartLabels.$inject = ['$timeout', '$window'];
 
-  chartLabels.directive('labels', ($timeout) => {
+  chartLabels.directive('chartLabels', ($timeout, $window) => {
 
     // Usage:
     // <chart-labels></chart-labels>
@@ -32,7 +32,7 @@ export default chartLabels => {
       // Constants
       var DISPLAY_SEGMENTS = 39; // Total segments to display on screen
       var TOTAL_SEGMENTS = 48;
-      var BASE_UNIT = 920;
+      var BASE_UNIT = ($window.innerHeight > 1000) ? ($window.innerHeight - 100) : 1000;
 
       // Vars
       var dayOfWeekIndex = 0;
@@ -121,10 +121,10 @@ export default chartLabels => {
         });
 
       //Append the label names on the outside
-      svg.selectAll('.donutText')
+      svg.selectAll('.day-of-month-label')
         .data(pie(donutData))
         .enter().append('text')
-        .attr('class', 'donutText')
+        .attr('class', 'day-of-month-label')
         .append('textPath')
         .attr('startOffset', '50%')
         .style('text-anchor', 'middle')

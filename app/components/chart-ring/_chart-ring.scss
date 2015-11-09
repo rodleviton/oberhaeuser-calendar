@@ -1,8 +1,6 @@
 .calendar-chart-ring {
   position: absolute;
-  width: auto;
-  height: auto;
-  margin: 0 auto;
+  z-index: 5;
 
   svg {
     position: absolute;
@@ -10,4 +8,14 @@
     left: 0;
     z-index: 5;
   }
+}
+
+.segment-label {
+  color: #fff;
+  font-size: em(10px);
+}
+
+.month-label {
+  font-size: em(12px);
+  text-align: right;
 }

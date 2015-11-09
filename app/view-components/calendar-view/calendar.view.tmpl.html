@@ -1,10 +1,19 @@
-<div id="themeCalendar">
-  <calendar-header year="vm.activeYear"></calendar-header>
-  <section class="section">
+<section>
+
+  <aside>
+    <calendar-header year="vm.activeYear"></calendar-header>
+    <federal-holidays config="vm.federalHolidays"></federal-holidays>
+  </aside>
+
+  <article>
     <div class="calendar">
-      <div id="calendarLogo"><strong>oberhaeuser<br />.info</strong>rmation<br />&amp; interface<br />design</div>
-      <div labels></div>
-      <div chart-ring ng-repeat="month in vm.months" index="$index" config="month"></div>
+      <div chart-labels>
+        <chart-stamp></chart-stamp>
+      </div>
+      <div class="chart-rings-container">
+        <chart-ring ng-repeat="month in vm.months" index="$index" config="month"></chart-ring>
+      </div>
     </div>
-  </section>
-</div>
+  </article>
+
+</section>

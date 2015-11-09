@@ -1,21 +1,4 @@
-.calendar-chart-labels {
-    position: absolute;
-    z-index: 1;
-}
-
-.labels {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  text-align: right;
-}
-
-.donutText, .chartDay, .slice {
-    color: #fff;
-    opacity: 0.85;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 10px;
+.day-of-month-label {
+  color: #fff;
+  font-size: em(10px);
 }

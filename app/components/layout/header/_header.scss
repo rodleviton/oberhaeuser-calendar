@@ -1,22 +1,27 @@
 #calendarHeader.theme-calendar {
   padding: 20px 40px;
-
-  .container {
-    width: 100%;
-    max-width: 100%;
-  }
+  float: left;
 
   h1 {
-    font-family: "raleway",sans-serif;
+    font-family: $raleway;
     font-style: normal;
     font-weight: 300;
     font-size: 3em;
     letter-spacing: 1px;
     text-transform: none;
     color: #fff;
+    margin-bottom: 10px;
 
     strong {
       font-weight: 700;
+    }
+  }
+
+  a, a:visited {
+    color: $dark-gray;
+
+    &:hover, &:focus {
+      color: #ccc;
     }
   }
 }
