@@ -11,7 +11,8 @@
         <chart-stamp></chart-stamp>
       </div>
       <div class="chart-rings-container">
-        <chart-ring ng-repeat="month in vm.months" index="$index" config="month"></chart-ring>
+        <!-- <chart-ring ng-repeat="month in vm.months" index="$index" config="month"></chart-ring> -->
+        <chart-ring config="vm.months"></chart-ring>
       </div>
     </div>
   </article>

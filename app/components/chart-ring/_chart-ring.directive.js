@@ -14,7 +14,8 @@ export default chartRing => {
       restrict: 'AE',
       replace: true,
       scope: {
-        config: '='
+        config: '=',
+        index: '='
       },
       link: link
     };
@@ -33,37 +34,40 @@ export default chartRing => {
       var DURATION = 1000;
       var DELAY = 1000;
       var BASE_UNIT = ($window.innerHeight > 1000) ? ($window.innerHeight - 100) : 1000;
-      var t = 2 * Math.PI;
 
       // VARS
+      var totalOffset = MAX_DAYS - scope.config.days;
+      var startOffset = scope.config.startIndex;
+      var segement = (100 / TOTAL_SEGMENTS);
+      var dayOfWeekIndex = startOffset;
+      var currentDay = 0;
       var dataset = [];
-      var offset = 22;
-      var arc;
+      var chartRing;
       var pie;
-      var width = BASE_UNIT;
-      var height = BASE_UNIT;
-      var innerRadius = ((BASE_UNIT / 2) - 20);
-      var outerRadius = (BASE_UNIT / 2);
-
-      // Temporary vars
-      var currentDayIndex = 0;
-      var currentMonth = '';
+      var arc;
+      var offset = ((scope.index + 1) * 22);
+      var width = BASE_UNIT - offset;
+      var height = BASE_UNIT - offset;
+      var radius = Math.min(width, height) / 2;
+      var innerRadius = ((BASE_UNIT / 2) - 20) - offset;
+      var outerRadius = (BASE_UNIT / 2) - offset;
+      var t = 2 * Math.PI;
 
       function setup() {
         // Chart
         configureDataset();
-        // createBackgroundChartRing();
-        // addBackgroundChartSegments();
-        //createChartRing();
-        // addChartSegments();
+        createBackgroundChartRing();
+        addBackgroundChartSegments();
+        createChartRing();
+        addChartSegments();
 
         // Text
-        // addMonthLabel();
-        // addDayLabel();
+        addMonthLabel();
+        addDayLabel();
 
-        // // Animations
-        // animateIn(chartRing);
-        // animateOut(backgroundChartRing);
+        // Animations
+        animateIn(chartRing);
+        animateOut(backgroundChartRing);
       }
 
       ///////////////////////////////////////////////////////////
@@ -74,82 +78,63 @@ export default chartRing => {
        * Configure calendar dataset
        */
       function configureDataset() {
-        angular.forEach(scope.config, function (month, index) {
-          currentMonth = month.name;
-          dataset[index] = []; // Add empty array at current month index
-          configureSegments(month, index);
-        });
-      }
-
-      function configureSegments(month, index) {
-
         for (var i = 0; i <= TOTAL_SEGMENTS; i++) {
-
-          // Shade offset segments same color as chartRing
-          if (i < month.startIndex) {
-
-            dataset[index].push({
+          if (i < startOffset) {
+            // Shade offset segments same color as chartRing
+            dataset.push({
               count: (100 / 40),
               color: COLOR_FOREGROUND
             });
-
+          } else if (i < (scope.config.days + startOffset)) {
             // Apply color to days of month segments
-          } else if (i < (month.days + month.startIndex)) {
-
             var segmentColor;
 
             // Determine if current segments are Saturday or Sunday
             // and shade accordingly
-            if ((currentDayIndex === (DAYS_OF_WEEK - 2)) || (currentDayIndex === (DAYS_OF_WEEK - 1))) {
-              segmentColor = shadeColor(month.color, -0.5);
+            if ((dayOfWeekIndex === (DAYS_OF_WEEK - 2)) || (dayOfWeekIndex === (DAYS_OF_WEEK - 1))) {
+              segmentColor = shadeColor(scope.config.color, -0.5);
             } else {
-              segmentColor = month.color;
+              segmentColor = scope.config.color;
             }
 
             // Days of week iterator
-            if (currentDayIndex === (DAYS_OF_WEEK - 1)) {
-              currentDayIndex = 0;
+            if (dayOfWeekIndex === (DAYS_OF_WEEK - 1)) {
+              dayOfWeekIndex = 0;
             } else {
-              currentDayIndex++;
+              dayOfWeekIndex++;
             }
 
-            dataset[index].push({
+            dataset.push({
               count: (100 / 40),
               color: segmentColor
             });
-
           } else if (i <= DISPLAY_SEGMENTS) {
-
-            dataset[index].push({
+            dataset.push({
               count: (100 / 40),
               color: COLOR_FOREGROUND
             });
-
+          } else {
             // Do not configure any fill color for
             // segments beyond days in month
-          } else {
-
-            dataset[index].push({
+            dataset.push({
               count: (100 / 40),
               color: 'none'
             });
           }
         }
 
-        // Create the chart ring
-        createChartRing(month, index);
       }
 
       ///////////////////////////////////////////////////////////
       // CREATE CHART
       ///////////////////////////////////////////////////////////
 
-      function createChartRing(month, index) {
-        // Calculate new values based on index
-        width -= offset;
-        height -= offset;
-        innerRadius -= offset;
-        outerRadius -= offset;
+      function createChartRing() {
+        angular.element(element).addClass('calendar-chart-ring');
+        angular.element(element).css('margin-left', (offset / 2) + 'px');
+        angular.element(element).css('margin-top', (offset / 2) + 'px');
+        angular.element(element).css('width', width + 'px');
+        angular.element(element).css('height', height + 'px');
 
         arc = d3.svg.arc()
           .innerRadius(innerRadius)
@@ -157,97 +142,124 @@ export default chartRing => {
 
         pie = d3.layout.pie()
           .padAngle(0.005)
-          .value(function (d) {
+          .value(function(d) {
             return d.count;
           }).sort(null);
 
-        var ring = d3.select(element[0]).append('svg')
+        chartRing = d3.select(element[0]).append('svg')
           .attr('width', width)
           .attr('height', height)
-          .style('margin-top', ((offset / 2) * (index + 1)) + 'px')
-          .style('margin-left', ((offset / 2) * (index + 1)) + 'px')
-          .attr('class', 'calendar-chart-ring')
-          // .on('mouseover', function () {
-          //   d3.select(this).selectAll('path').transition()
-          //     .duration(50)
-          //     .attr('fill', function (d, i) {
-          //       var fillColor = 'none';
-          //
-          //       if (i <= DISPLAY_SEGMENTS) {
-          //         fillColor = shadeColor(d.data.color, -0.5);
-          //       }
-          //
-          //       return fillColor;
-          //     });
-          // })
-          // .on('mouseout', function () {
-          //   d3.select(this).selectAll('path').transition()
-          //     .duration(50)
-          //     .attr('fill', function (d, i) {
-          //       var fillColor = 'none';
-          //
-          //       if (i <= DISPLAY_SEGMENTS) {
-          //         fillColor = d.data.color;
-          //       }
-          //
-          //       return fillColor;
-          //     });
-          // })
+          .on('mouseover', function() {
+            d3.select(this).selectAll('path').transition()
+              .duration(50)
+              .attr('fill',  function(d, i) {
+                var fillColor = 'none';
+
+                if (i <= DISPLAY_SEGMENTS) {
+                  fillColor = shadeColor(d.data.color, -0.5);
+                }
+
+                return fillColor;
+              });
+          })
+          .on('mouseout', function() {
+            d3.select(this).selectAll('path').transition()
+              .duration(50)
+              .attr('fill', function(d, i) {
+                var fillColor = 'none';
+
+                if (i <= DISPLAY_SEGMENTS) {
+                  fillColor = d.data.color;
+                }
+
+                return fillColor;
+              });
+          })
           .append('g')
           .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-
-        // Add chart segments to newly created ring
-        addChartSegments(ring, month, index);
       }
 
-      function addChartSegments(ring, month, index) {
-        var g = ring.selectAll('path')
-          .data(pie(dataset[index]))
+      function addChartSegments() {
+        var g = chartRing.selectAll('path')
+          .data(pie(dataset))
           .enter()
           .append('path')
           .attr('d', arc)
           .attr('class', 'chartRing')
+          .attr('fill', function(d) {
+            return d.data.color;
+          })
           .on('mouseover', function() {
             $log.debug('H');
-          })
-          .attr('fill', function (d) {
-            return d.data.color;
           });
+      }
 
-        // Add labels to rings and segments
-        addMonthLabel(ring, month, index);
-        addDayLabel(ring, month, index);
+      var backgroundArc;
+      var backgroundPie;
+      var backgroundChartRing;
+
+      function createBackgroundChartRing() {
+        angular.element(element).addClass('calendar-chart-ring');
+
+        backgroundArc = d3.svg.arc()
+          .innerRadius(innerRadius)
+          .outerRadius(outerRadius);
+
+        backgroundPie = d3.layout.pie()
+          .padAngle(0.005)
+          .value(function(d) {
+            return d.count;
+          }).sort(null);
+
+        backgroundChartRing = d3.select(element[0]).append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
+          .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+      }
+
+      function addBackgroundChartSegments() {
+        backgroundChartRing.selectAll('path')
+          .data(backgroundPie(dataset))
+          .enter()
+          .append('path')
+          .attr('d', backgroundArc)
+          .attr('class', 'backgroundChartRing')
+          .attr('fill', function(d, i) {
+            var fillColor = COLOR_FOREGROUND;
+
+            return fillColor;
+          });
       }
 
       ///////////////////////////////////////////////////////////
       // TEXT PATHS
       ///////////////////////////////////////////////////////////
-      function addMonthLabel(ring, month, index) {
-
+      function addMonthLabel() {
         // Append label group
-        ring.append('g')
+        chartRing.append('g')
           .attr('class', 'month-label');
 
         // Configure label
-        ring.select('.month-label').selectAll('text')
-          .data([currentMonth])
+        chartRing.select('.month-label').selectAll('text')
+          .data([scope.config.name])
           .enter()
           .append('text')
           .attr('dx', '-20')
           .style('text-anchor', 'end')
           .attr('dy', (outerRadius * -1) + 13) // vertical-align
-          .attr('fill', month.color)
-          .text(currentMonth);
+          .attr('fill', scope.config.color)
+          .text(scope.config.name);
       }
 
       // Append the label
-      function addDayLabel(ring, month, index) {
+      function addDayLabel() {
 
         // Select all <g> elements with class slice (there aren't any yet)
-        var segements = ring.selectAll('g.slice')
+        var segements = chartRing.selectAll('g.slice')
           // Associate the generated pie data (an array of arcs, each having startAngle,
           // endAngle and value properties)
-          .data(pie(dataset[index]))
+          .data(pie(dataset))
           // This will create <g> elements for every 'extra' data element that should be associated
           // with a selection. The result is creating a <g> for every object in the data array
           .enter()
@@ -257,7 +269,7 @@ export default chartRing => {
           .attr('class', 'segment-label'); //allow us to style things in the slices (like text)
 
         segements.append('svg:text')
-          .attr('transform', function (d) { //set the label's origin to the center of the arc
+          .attr('transform', function(d) { //set the label's origin to the center of the arc
             //we have to make sure to set these before calling arc.centroid
             d.outerRadius = outerRadius + 50; // Set Outer Coordinate
             d.innerRadius = outerRadius + 45; // Set Inner Coordinate
@@ -266,14 +278,15 @@ export default chartRing => {
           .attr('text-anchor', 'middle') //center the text on it's origin
           .style('fill', '#fff')
           .attr('dy', 3) //Move the text down
-          .text(function (d, i) {
+          .text(function(d, i) {
             var text = '';
 
-            if (i < month.startIndex) {
+            if (i < startOffset) {
               text = '';
-            } else if (i < (month.days + month.startIndex)) {
-              text = ((i + 1) - (month.startIndex));
-            } else if (i <= TOTAL_SEGMENTS) {
+            } else if (i < (scope.config.days + startOffset)) {
+              currentDay++;
+              text = currentDay;
+            } else if (i <= DISPLAY_SEGMENTS) {
               text = '';
             }
 

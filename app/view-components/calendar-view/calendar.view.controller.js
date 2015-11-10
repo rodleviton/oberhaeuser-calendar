@@ -27,9 +27,10 @@ export default calendarViewComponent => {
     }
 
     function configureCalendar() {
-      vm.months = require('./config/calendar.json');
+      //vm.months = require('./config/calendar.json');
+      vm.months = require('./config/test.json');
 
-      // Calculate start day index of month
+      // // Calculate start day index of month
       angular.forEach(vm.months, function(item, index) {
         item.startIndex = vm.getStartDay(index, vm.activeYear);
       });
