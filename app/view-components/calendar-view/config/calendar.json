@@ -1,72 +1,72 @@
 [
    {
-      "name":"January",
+      "index": 0,
       "color":"#90b70c",
       "days":31,
       "startIndex":"0"
    },
    {
-      "name":"February",
+      "index": 1,
       "color":"#90b70c",
       "days":"0",
       "startIndex":"0"
    },
    {
-      "name":"March",
+      "index": 2,
       "color":"#587211",
       "days":31,
       "startIndex":"0"
    },
    {
-      "name":"April",
+      "index": 3,
       "color":"#587211",
       "days":30,
       "startIndex":"0"
    },
    {
-      "name":"May",
+      "index": 4,
       "color":"#3d530b",
       "days":31,
       "startIndex":"0"
    },
    {
-      "name":"June",
+      "index": 5,
       "color":"#3d530b",
       "days":30,
       "startIndex":"0"
    },
    {
-      "name":"July",
+      "index": 6,
       "color":"#0199dc",
       "days":31,
       "startIndex":"0"
    },
    {
-      "name":"August",
+      "index": 7,
       "color":"#0199dc",
       "days":31,
       "startIndex":"0"
    },
    {
-      "name":"September",
+      "index": 8,
       "color":"#025d89",
       "days":30,
       "startIndex":"0"
    },
    {
-      "name":"October",
+      "index": 9,
       "color":"#025d89",
       "days":31,
       "startIndex":"0"
    },
    {
-      "name":"November",
+      "index": 10,
       "color":"#014365",
       "days":30,
       "startIndex":"0"
    },
    {
-      "name":"December",
+      "index": 11,
       "color":"#014365",
       "days":31,
       "startIndex":"0"

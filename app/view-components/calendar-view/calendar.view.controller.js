@@ -11,8 +11,11 @@ export default calendarViewComponent => {
 
     vm.activeYear = $stateParams.year || 2015;
     vm.activate = activate;
+    vm.getCalendar = getCalendar;
+    vm.getHolidays = getHolidays;
     vm.getStartDay = getStartDay;
     vm.getDaysInFebruary = getDaysInFebruary;
+    vm.getCurrentDay = getCurrentDay;
 
     vm.activate();
 
@@ -26,26 +29,40 @@ export default calendarViewComponent => {
       return new Date(year, month, 0).getDay();
     }
 
-    function configureCalendar() {
-      //vm.months = require('./config/calendar.json');
-      vm.months = require('./config/test.json');
+    function getCurrentDay() {
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1;
+      var yyyy = today.getFullYear();
 
-      // // Calculate start day index of month
-      angular.forEach(vm.months, function(item, index) {
+      return (yyyy + '-' + mm + '-' + dd);
+    }
+
+    function getCalendar() {
+      var calendar = require('./config/calendar.json');
+
+      // Calculate start day index of month
+      angular.forEach(calendar, function (item, index) {
         item.startIndex = vm.getStartDay(index, vm.activeYear);
       });
 
       // Calculate days in February
-      vm.months[1].days = vm.getDaysInFebruary(vm.activeYear);
+      calendar[1].days = vm.getDaysInFebruary(vm.activeYear);
+
+      return calendar;
     }
 
-    function configureHolidays() {
-      vm.federalHolidays = require('./config/federal-holidays.json');
+    function getHolidays() {
+      return require('./config/federal-holidays.json');
     }
 
     function activate() {
-      configureCalendar();
-      configureHolidays();
+      vm.config = {
+        calendar: vm.getCalendar(),
+        year: vm.activeYear,
+        events: vm.getHolidays(),
+        currentDate: vm.getCurrentDay()
+      };
     }
 
   }

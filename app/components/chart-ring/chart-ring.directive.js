@@ -3,9 +3,9 @@ export default chartRing => {
 
   var d3 = require('d3');
 
-  chartRing.$inject = ['$timeout', '$log', '$window'];
+  chartRing.$inject = ['$timeout', '$log', '$window', 'moment'];
 
-  chartRing.directive('chartRing', ($timeout, $log, $window) => {
+  chartRing.directive('chartRing', ($timeout, $log, $window, moment) => {
 
     // Usage:
     // <chart-ring></chart-ring>
@@ -35,35 +35,41 @@ export default chartRing => {
       var BASE_UNIT = ($window.innerHeight > 1000) ? ($window.innerHeight - 100) : 1000;
       var t = 2 * Math.PI;
 
+      var MONTH_LABELS = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+
       // VARS
       var dataset = [];
       var offset = 22;
+      var tip;
       var arc;
       var pie;
+      var chartRing;
       var width = BASE_UNIT;
       var height = BASE_UNIT;
       var innerRadius = ((BASE_UNIT / 2) - 20);
       var outerRadius = (BASE_UNIT / 2);
 
-      // Temporary vars
-      var currentDayIndex = 0;
-      var currentMonth = '';
-
       function setup() {
+
         // Chart
         configureDataset();
-        // createBackgroundChartRing();
-        // addBackgroundChartSegments();
-        //createChartRing();
-        // addChartSegments();
-
-        // Text
-        // addMonthLabel();
-        // addDayLabel();
+        createChartRing();
 
         // // Animations
-        // animateIn(chartRing);
-        // animateOut(backgroundChartRing);
+        animateIn(chartRing);
       }
 
       ///////////////////////////////////////////////////////////
@@ -74,29 +80,30 @@ export default chartRing => {
        * Configure calendar dataset
        */
       function configureDataset() {
-        angular.forEach(scope.config, function (month, index) {
-          currentMonth = month.name;
+        angular.forEach(scope.config.calendar, function (month, index) {
           dataset[index] = []; // Add empty array at current month index
           configureSegments(month, index);
         });
       }
 
       function configureSegments(month, index) {
+        var currentDayIndex = month.startIndex;
 
         for (var i = 0; i <= TOTAL_SEGMENTS; i++) {
 
-          // Shade offset segments same color as chartRing
+          // Local vars
+          var segmentColor = 'none';
+          var segmentLabel = '';
+          var isActive = false;
+          var itemDate = '';
+
           if (i < month.startIndex) {
+            // Shade offset segments same color as chartRing
+            segmentColor = COLOR_FOREGROUND;
 
-            dataset[index].push({
-              count: (100 / 40),
-              color: COLOR_FOREGROUND
-            });
-
-            // Apply color to days of month segments
           } else if (i < (month.days + month.startIndex)) {
-
-            var segmentColor;
+            isActive = true;
+            itemDate = (scope.config.year + '-' + (month.index + 1) + '-' + ((i + 1) - month.startIndex));
 
             // Determine if current segments are Saturday or Sunday
             // and shade accordingly
@@ -113,47 +120,41 @@ export default chartRing => {
               currentDayIndex++;
             }
 
-            dataset[index].push({
-              count: (100 / 40),
-              color: segmentColor
+            angular.forEach(scope.config.events, function (item, index) {
+              if (itemDate === moment(item.date).format('YYYY-M-D')) {
+                segmentColor = '#fff';
+              }
             });
+
+            if (itemDate === scope.config.currentDate) {
+              segmentColor = '#000';
+            }
+
+            segmentLabel = getSegmentLabel(i);
 
           } else if (i <= DISPLAY_SEGMENTS) {
-
-            dataset[index].push({
-              count: (100 / 40),
-              color: COLOR_FOREGROUND
-            });
-
-            // Do not configure any fill color for
-            // segments beyond days in month
-          } else {
-
-            dataset[index].push({
-              count: (100 / 40),
-              color: 'none'
-            });
+            segmentColor = COLOR_FOREGROUND;
           }
-        }
 
-        // Create the chart ring
-        createChartRing(month, index);
+          dataset[index].push({
+            count: (100 / 40),
+            isActive: isActive,
+            color: segmentColor,
+            label: segmentLabel,
+            date: itemDate
+          });
+
+        }
       }
 
       ///////////////////////////////////////////////////////////
       // CREATE CHART
       ///////////////////////////////////////////////////////////
 
-      function createChartRing(month, index) {
+      function createChartRing() {
         // Calculate new values based on index
         width -= offset;
         height -= offset;
-        innerRadius -= offset;
-        outerRadius -= offset;
-
-        arc = d3.svg.arc()
-          .innerRadius(innerRadius)
-          .outerRadius(outerRadius);
 
         pie = d3.layout.pie()
           .padAngle(0.005)
@@ -161,124 +162,111 @@ export default chartRing => {
             return d.count;
           }).sort(null);
 
-        var ring = d3.select(element[0]).append('svg')
+        chartRing = d3.select(element[0]).append('svg')
           .attr('width', width)
           .attr('height', height)
-          .style('margin-top', ((offset / 2) * (index + 1)) + 'px')
-          .style('margin-left', ((offset / 2) * (index + 1)) + 'px')
+          .style('margin-top', (offset / 2) + 'px')
+          .style('margin-left', (offset / 2) + 'px')
           .attr('class', 'calendar-chart-ring')
-          // .on('mouseover', function () {
-          //   d3.select(this).selectAll('path').transition()
-          //     .duration(50)
-          //     .attr('fill', function (d, i) {
-          //       var fillColor = 'none';
-          //
-          //       if (i <= DISPLAY_SEGMENTS) {
-          //         fillColor = shadeColor(d.data.color, -0.5);
-          //       }
-          //
-          //       return fillColor;
-          //     });
-          // })
-          // .on('mouseout', function () {
-          //   d3.select(this).selectAll('path').transition()
-          //     .duration(50)
-          //     .attr('fill', function (d, i) {
-          //       var fillColor = 'none';
-          //
-          //       if (i <= DISPLAY_SEGMENTS) {
-          //         fillColor = d.data.color;
-          //       }
-          //
-          //       return fillColor;
-          //     });
-          // })
           .append('g')
           .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
         // Add chart segments to newly created ring
-        addChartSegments(ring, month, index);
+        addChartSegments();
       }
 
-      function addChartSegments(ring, month, index) {
-        var g = ring.selectAll('path')
-          .data(pie(dataset[index]))
-          .enter()
-          .append('path')
-          .attr('d', arc)
-          .attr('class', 'chartRing')
-          .on('mouseover', function() {
-            $log.debug('H');
-          })
-          .attr('fill', function (d) {
-            return d.data.color;
-          });
+      function addChartSegments() {
+        angular.forEach(dataset, function (month, index) {
 
-        // Add labels to rings and segments
-        addMonthLabel(ring, month, index);
-        addDayLabel(ring, month, index);
-      }
+          innerRadius -= offset;
+          outerRadius -= offset;
 
-      ///////////////////////////////////////////////////////////
-      // TEXT PATHS
-      ///////////////////////////////////////////////////////////
-      function addMonthLabel(ring, month, index) {
+          var arc = d3.svg.arc()
+            .innerRadius(innerRadius)
+            .outerRadius(outerRadius);
 
-        // Append label group
-        ring.append('g')
-          .attr('class', 'month-label');
+          var group = d3.select(element[0]).select('g')
+            .append('g')
+            .attr('class', 'chart-ring');
 
-        // Configure label
-        ring.select('.month-label').selectAll('text')
-          .data([currentMonth])
-          .enter()
-          .append('text')
-          .attr('dx', '-20')
-          .style('text-anchor', 'end')
-          .attr('dy', (outerRadius * -1) + 13) // vertical-align
-          .attr('fill', month.color)
-          .text(currentMonth);
-      }
+          // Configure segment colour
+          var segments = group.selectAll('path')
+            .data(pie(month))
+            .enter()
+            .append('path')
+            .attr('d', arc)
+            .attr('class', function (d, i) {
+              return 'segment-' + (i + 1);
+            })
+            .attr('fill', function (d) {
+              return d.data.color;
+            })
+            .on('mouseover', function (d) {
+              if (d.data.isActive) {
+                focusRow(this, true);
+                focusLabel(this, d, true);
+                focusSegment(this, true);
+              }
+            })
+            .on('mouseout', function (d) {
+              if (d.data.isActive) {
+                focusRow(this, false);
+                focusLabel(this, d, false);
+              }
+            });
 
-      // Append the label
-      function addDayLabel(ring, month, index) {
+          // Configure month labels
+          var monthLabels = group.selectAll('g.month-label')
+            .data([scope.config.calendar[index].index])
+            .enter()
+            .append('g')
+            .attr('class', 'month-label')
+            .append('text')
+            .style('text-anchor', 'end')
+            .attr('dx', '-20')
+            .attr('dy', (outerRadius * -1) + 13)
+            .attr('fill', scope.config.calendar[index].color)
+            .text(function (d, i) {
+              return MONTH_LABELS[d];
+            });
 
-        // Select all <g> elements with class slice (there aren't any yet)
-        var segements = ring.selectAll('g.slice')
-          // Associate the generated pie data (an array of arcs, each having startAngle,
-          // endAngle and value properties)
-          .data(pie(dataset[index]))
-          // This will create <g> elements for every 'extra' data element that should be associated
-          // with a selection. The result is creating a <g> for every object in the data array
-          .enter()
-          // Create a group to hold each slice (we will have a <path> and a <text>
-          // element associated with each slice)
-          .append('svg:g')
-          .attr('class', 'segment-label'); //allow us to style things in the slices (like text)
+          // Configure day labels
+          var dayLabels = group.selectAll('g.segment-label')
+            .data(pie(month))
+            .enter()
+            .append('g')
+            .attr('class', function (d, i) {
+              return 'segment-label ' + getSegmentLabel(i);
+            })
+            .append('text')
+            .attr('pointer-events', 'none')
+            .attr('transform', function (d) {
+              //set the label's origin to the center of the arc
+              //we have to make sure to set these before calling arc.centroid
+              d.outerRadius = outerRadius + 50;
+              d.innerRadius = outerRadius + 45;
+              return 'translate(' + arc.centroid(d) + ')';
+            })
+            .attr('text-anchor', 'middle')
+            .attr('dy', 3)
+            .style('fill', '#fff')
+            .text(function (d, i) {
+              var text = '';
 
-        segements.append('svg:text')
-          .attr('transform', function (d) { //set the label's origin to the center of the arc
-            //we have to make sure to set these before calling arc.centroid
-            d.outerRadius = outerRadius + 50; // Set Outer Coordinate
-            d.innerRadius = outerRadius + 45; // Set Inner Coordinate
-            return 'translate(' + arc.centroid(d) + ')';
-          })
-          .attr('text-anchor', 'middle') //center the text on it's origin
-          .style('fill', '#fff')
-          .attr('dy', 3) //Move the text down
-          .text(function (d, i) {
-            var text = '';
+              if (i < scope.config.calendar[index].startIndex) {
+                text = '';
+              } else if (i < (scope.config.calendar[index].days + scope.config.calendar[index].startIndex)) {
+                text = ((i + 1) - (scope.config.calendar[index].startIndex));
 
-            if (i < month.startIndex) {
-              text = '';
-            } else if (i < (month.days + month.startIndex)) {
-              text = ((i + 1) - (month.startIndex));
-            } else if (i <= TOTAL_SEGMENTS) {
-              text = '';
-            }
+                if (text < 10) {
+                  text = '0' + text;
+                }
+              }
 
-            return text;
-          });
+              return text;
+            });
+
+        });
       }
 
       ///////////////////////////////////////////////////////////
@@ -289,24 +277,14 @@ export default chartRing => {
        * Animate chart ring into view
        */
       function animateIn(element) {
-        element
+        element.selectAll('.chart-ring')
           .style('opacity', 0)
           .transition()
           .duration(DURATION)
-          .delay(DELAY + (scope.index * 100))
+          .delay(function (d, i) {
+            return (DELAY + (i * 100));
+          })
           .style('opacity', 1);
-      }
-
-      /**
-       * Animate chart ring out of view
-       */
-      function animateOut(element) {
-        element
-          .style('opacity', 1)
-          .transition()
-          .duration(DURATION)
-          .delay(DELAY + (scope.index * 100))
-          .style('opacity', 0);
       }
 
       /**
@@ -327,10 +305,41 @@ export default chartRing => {
           .toString(16).slice(1);
       }
 
-      // Computes the angle of an arc, converting from radians to degrees.
-      function angle(d) {
-        var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
-        return a > 90 ? a - 180 : a;
+      function getSegmentLabel(index) {
+        return 'segment-label-' + index;
+      }
+
+      function focusSegment(segment, isFocused) {
+        d3.select(segment).transition()
+          .duration(150)
+          .attr('fill', function (d, i) {
+            return isFocused ? '#fff' : d.data.color;
+          });
+      }
+
+      function focusRow(segment, isFocused) {
+        d3.select(segment.parentNode)
+          .selectAll('path')
+          .transition()
+          .duration(150)
+          .attr('fill', function (d, i) {
+            var fillColour = d.data.color;
+
+            if (d.data.isActive && isFocused) {
+              fillColour = shadeColor(d.data.color, -0.5);
+            }
+
+            return fillColour;
+          });
+      }
+
+      function focusLabel(segment, item, isFocused) {
+        var fillColor = isFocused ? '#000' : '#fff';
+
+        d3.select(segment.parentNode)
+          .select('g.' + item.data.label)
+          .select('text')
+          .style('fill', fillColor);
       }
 
       // Initialise chart ring
