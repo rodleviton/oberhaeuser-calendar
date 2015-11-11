@@ -2,11 +2,10 @@
   clear: both;
   position: absolute;
   bottom: 0;
-  padding: 40px 40px;
-
+  padding: 40px;
   h4 {
     border-top: 10px solid #fff;
-    padding: 25px 0 0 0;
+    padding: 25px 0 0;
     float: left;
     display: block;
     font-size: em(18px);
@@ -14,18 +13,23 @@
     color: #fff;
     line-height: 1.5em;
   }
-
   .events {
     clear: both;
     padding-top: 20px;
-
     li {
-      line-height: 2em;
-      color: #ccc;
-      span {
-        color: #666;
+      a {
+        display: inline-block;
+        line-height: 2em;
+        color: #ccc;
+        span {
+          color: #666;
+        }
+
+        &:hover {
+          cursor: pointer;
+          color: #fff;
+        }
       }
     }
-
   }
 }

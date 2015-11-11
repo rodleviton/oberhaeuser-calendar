@@ -2,7 +2,9 @@
 
   <aside>
     <calendar-header year="vm.activeYear"></calendar-header>
-    <federal-holidays config="vm.config.events"></federal-holidays>
+    <federal-holidays config="vm.config.events">
+      <event-item ng-repeat="event in vm.config.events" label="event.label" date="event.date"></event-item>
+    </federal-holidays>
   </aside>
 
   <article>
@@ -11,7 +13,7 @@
         <chart-stamp></chart-stamp>
       </div>
       <div class="chart-rings-container">
-        <chart-ring config="vm.config"></chart-ring>
+        <chart config="vm.config"></chart>
       </div>
     </div>
   </article>

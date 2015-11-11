@@ -9,7 +9,7 @@ export default federalHolidays => {
 
     var directive = {
       restrict: 'AE',
-      replace: true,
+      transclude: true,
       template: require('./federal-holidays.tmpl.html'),
       scope: {
         config: '='

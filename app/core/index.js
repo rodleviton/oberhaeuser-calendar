@@ -1,10 +1,12 @@
 export default 'app.core';
 
+var ngLodash = require('ng-lodash');
 var moment = require('moment');
 var angularMoment = require('angular-moment');
 
 const appCore = angular.module('app.core', [
   require('angular-ui-router/release/angular-ui-router'),
+  'ngLodash',
   'angularMoment'
 ]);
 

@@ -1,7 +1,6 @@
 <div class="federal-holidays">
   <h4>Federal Holidays<br />United States of America</h4>
 
-  <ul class="events">
-    <li ng-repeat="event in config">{{event.label}} <span>{{event.date | amDateFormat:'DD-MMM'}}</span></li>
+  <ul class="events" ng-transclude>
   </ul>
 </div>

@@ -1,73 +1,85 @@
 [
    {
       "index": 0,
-      "color":"#90b70c",
+      "fillColor":"#90b70c",
+      "textColor": "#ffffff",
       "days":31,
       "startIndex":"0"
    },
    {
       "index": 1,
-      "color":"#90b70c",
+      "fillColor":"#90b70c",
+      "textColor": "#ffffff",
       "days":"0",
       "startIndex":"0"
    },
    {
       "index": 2,
-      "color":"#587211",
+      "fillColor":"#587211",
+      "textColor": "#ffffff",
       "days":31,
       "startIndex":"0"
    },
    {
       "index": 3,
-      "color":"#587211",
+      "fillColor":"#587211",
+      "textColor": "#ffffff",
       "days":30,
       "startIndex":"0"
    },
    {
       "index": 4,
-      "color":"#3d530b",
+      "fillColor":"#3d530b",
+      "textColor": "#ffffff",
       "days":31,
       "startIndex":"0"
    },
    {
       "index": 5,
-      "color":"#3d530b",
+      "fillColor":"#3d530b",
+      "textColor": "#ffffff",
       "days":30,
       "startIndex":"0"
    },
    {
       "index": 6,
-      "color":"#0199dc",
+      "fillColor":"#0199dc",
+      "textColor": "#ffffff",
       "days":31,
       "startIndex":"0"
    },
    {
       "index": 7,
-      "color":"#0199dc",
+      "fillColor":"#0199dc",
+      "textColor": "#ffffff",
       "days":31,
       "startIndex":"0"
    },
    {
       "index": 8,
-      "color":"#025d89",
+      "fillColor":"#025d89",
+      "textColor": "#ffffff",
       "days":30,
       "startIndex":"0"
    },
    {
       "index": 9,
-      "color":"#025d89",
+      "fillColor":"#025d89",
+      "textColor": "#ffffff",
       "days":31,
       "startIndex":"0"
    },
    {
       "index": 10,
-      "color":"#014365",
+      "fillColor":"#014365",
+      "textColor": "#ffffff",
       "days":30,
       "startIndex":"0"
    },
    {
       "index": 11,
-      "color":"#014365",
+      "fillColor":"#014365",
+      "textColor": "#ffffff",
       "days":31,
       "startIndex":"0"
    }

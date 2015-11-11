@@ -1,6 +1,7 @@
 body {
   background: #202020;
   min-width: 1040px;
+  overflow: hidden;
 }
 
 // Page layout
@@ -19,7 +20,7 @@ section {
 // Calendar layout
 .calendar {
   position: relative;
-  top: 36px;
+  top: 50px;
   right: 20px;
 }
 
