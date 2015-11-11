@@ -1,8 +1,8 @@
-export default federalHolidays => {
+export default events => {
 
-  federalHolidays.$inject = ['$log', 'moment', 'ChartService'];
+  events.$inject = ['$log', 'moment', 'ChartService'];
 
-  federalHolidays.directive('eventItem', ($log, moment, ChartService) => {
+  events.directive('eventItem', ($log, moment, ChartService) => {
 
     // Usage:
     // <event-item</event-item>

@@ -2,9 +2,9 @@
 
   <aside>
     <calendar-header year="vm.activeYear"></calendar-header>
-    <federal-holidays config="vm.config.events">
+    <events config="vm.config.events">
       <event-item ng-repeat="event in vm.config.events" label="event.label" date="event.date"></event-item>
-    </federal-holidays>
+    </events>
   </aside>
 
   <article>
@@ -19,3 +19,5 @@
   </article>
 
 </section>
+
+<ui-view></ui-view>

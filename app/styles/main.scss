@@ -5,10 +5,11 @@
 
 // View Components
 @import "../view-components/calendar-view/calendar-view";
+@import "../view-components/day-view/day-view";
 
 // Components
 @import "../components/layout/header/header";
 @import "../components/chart/chart";
 @import "../components/chart-labels/chart-labels";
 @import "../components/chart-stamp/chart-stamp";
-@import "../components/federal-holidays/federal-holidays";
+@import "../components/events/events";

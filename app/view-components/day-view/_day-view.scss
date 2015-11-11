@@ -1,0 +1,56 @@
+.lightbox {
+  background: #000;
+  opacity: 0.85;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.card {
+  width: 400px;
+  height: 425px;
+  background: #90b70c;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+}
+
+.card-inner {
+  padding: 20px;
+}
+
+.card-header {
+  margin-bottom: 20px;
+
+  h1 {
+    font-family: $raleway;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+    text-transform: none;
+    color: #fff;
+    margin-bottom: 10px;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+}
+
+.card-body {
+  h3 {
+    font-family: $raleway;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.25em;
+  }
+}
+
+.card-list {
+
+}

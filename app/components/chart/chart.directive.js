@@ -3,9 +3,9 @@ export default chart => {
 
   var d3 = require('d3');
 
-  chart.$inject = ['$timeout', '$log', '$window', 'lodash', 'moment', 'ChartService'];
+  chart.$inject = ['$timeout', '$log', '$window', '$state', 'lodash', 'moment', 'ChartService'];
 
-  chart.directive('chart', ($timeout, $log, $window, lodash, moment, ChartService) => {
+  chart.directive('chart', ($timeout, $log, $window, $state, lodash, moment, ChartService) => {
 
     // Usage:
     // <chart></chart>
@@ -117,7 +117,9 @@ export default chart => {
             fillColor: fillColor,
             textColor: textColor,
             label: segmentLabel,
-            date: new Date(itemDate)
+            date: new Date(itemDate),
+            day: getDay(((i + 1) - month.startIndex)),
+            month: getMonth((month.index + 1))
           });
         }
       }
@@ -205,6 +207,12 @@ export default chart => {
                   var dayIndex = getDayIndex(d.data.date);
                   ChartService.focusEvent(monthIndex, dayIndex, false);
                 }
+              })
+              .on('click', function (d) {
+                $state.go('calendar.day', {
+                  day: d.data.day,
+                  month: d.data.month
+                });
               });
 
             addMonthLabels(group, index);
@@ -375,6 +383,14 @@ export default chart => {
 
       function getDayIndex(date) {
         return parseInt(moment(date).format('D')) - 1;
+      }
+
+      function getDay(day) {
+        return (day < 10) ? '0' + day : day;
+      }
+
+      function getMonth(month) {
+        return (month < 10) ? '0' + month : month;
       }
 
       //////////////////////////////////////////////////////////////////////

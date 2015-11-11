@@ -2,10 +2,10 @@ export default calendarViewComponent => {
 
   calendarViewComponent.controller('CalendarController', CalendarController);
 
-  CalendarController.$inject = ['$log', '$stateParams'];
+  CalendarController.$inject = ['$log', '$stateParams', '$timeout', 'ChartService'];
 
   /* @ngInject */
-  function CalendarController($log, $stateParams) {
+  function CalendarController($log, $stateParams, $timeout, ChartService) {
     var vm = this;
     var DAYS_OF_WEEK = [1, 2, 3, 4, 5, 6, 0];
 
@@ -53,7 +53,7 @@ export default calendarViewComponent => {
     }
 
     function getHolidays() {
-      return require('./config/federal-holidays.json');
+      return require('./config/events.json');
     }
 
     function activate() {
@@ -63,6 +63,11 @@ export default calendarViewComponent => {
         events: vm.getHolidays(),
         currentDate: vm.getCurrentDay()
       };
+
+      // $timeout(function() {
+      //   vm.config.events = require('./config/events-02.json');
+      //   ChartService.markEvents();
+      // }, 5000);
     }
 
   }

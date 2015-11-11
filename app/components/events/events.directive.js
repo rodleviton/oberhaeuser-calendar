@@ -1,16 +1,16 @@
-export default federalHolidays => {
+export default events => {
 
-  federalHolidays.$inject = ['$log'];
+  events.$inject = ['$log'];
 
-  federalHolidays.directive('federalHolidays', ($log) => {
+  events.directive('events', ($log) => {
 
     // Usage:
-    // <federal-holidays</federal-holidays>
+    // <events></events>
 
     var directive = {
       restrict: 'AE',
       transclude: true,
-      template: require('./federal-holidays.tmpl.html'),
+      template: require('./events.tmpl.html'),
       scope: {
         config: '='
       },
