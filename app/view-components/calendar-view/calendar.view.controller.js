@@ -63,11 +63,6 @@ export default calendarViewComponent => {
         events: vm.getHolidays(),
         currentDate: vm.getCurrentDay()
       };
-
-      // $timeout(function() {
-      //   vm.config.events = require('./config/events-02.json');
-      //   ChartService.markEvents();
-      // }, 5000);
     }
 
   }

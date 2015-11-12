@@ -2,35 +2,21 @@ export default dayViewComponent => {
 
   dayViewComponent.controller('DayController', DayController);
 
-  DayController.$inject = ['$log', '$stateParams'];
+  DayController.$inject = ['$log', '$stateParams', 'ChartService', 'Utilities', 'DEFAULTS'];
 
   /* @ngInject */
-  function DayController($log, $stateParams) {
+  function DayController($log, $stateParams, ChartService, Utilities, DEFAULTS) {
     var vm = this;
+    vm.activate = activate;
 
-    var MONTH_LABELS = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
+    function activate() {
+      vm.dayConfig = ChartService.getDay($stateParams.year, $stateParams.month, $stateParams.day);
+      vm.month = Utilities.getMonthLabel(Utilities.getMonthIndex(vm.dayConfig.month));
 
-    vm.day = $stateParams.day;
-    vm.month = MONTH_LABELS[getMonthIndex($stateParams.month)];
-
-    function getMonthIndex(month) {
-      var index = parseInt(month.replace(/^0+/, '')) - 1;
-
-      return index;
+      $log.debug(vm.dayConfig);
     }
+
+    vm.activate();
 
   }
 };

@@ -1,23 +1,25 @@
-<section>
+<div id="calendarView" class="container">
+  <section>
 
-  <aside>
-    <calendar-header year="vm.activeYear"></calendar-header>
-    <events config="vm.config.events">
-      <event-item ng-repeat="event in vm.config.events" label="event.label" date="event.date"></event-item>
-    </events>
-  </aside>
+    <aside>
+      <calendar-header year="vm.activeYear"></calendar-header>
+      <events config="vm.config.events">
+        <event-item ng-repeat="event in vm.config.events" label="event.label" date="event.date"></event-item>
+      </events>
+    </aside>
 
-  <article>
-    <div class="calendar">
-      <div chart-labels>
-        <chart-stamp></chart-stamp>
+    <article>
+      <div class="calendar">
+        <div chart-labels>
+          <chart-stamp></chart-stamp>
+        </div>
+        <div class="chart-rings-container">
+          <chart config="vm.config"></chart>
+        </div>
       </div>
-      <div class="chart-rings-container">
-        <chart config="vm.config"></chart>
-      </div>
-    </div>
-  </article>
+    </article>
 
-</section>
+  </section>
 
-<ui-view></ui-view>
+  <div ui-view class="animate-delay"></div>  
+</div>

@@ -7,6 +7,7 @@ if (ON_TEST) {
 
 const appModule = angular.module('app', [
   require('./core'),
+  require('./common'),
   require('./view-components'),
   require('./components')
 ]);

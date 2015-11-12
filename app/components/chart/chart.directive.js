@@ -1,11 +1,10 @@
-/* jslint bitwise: true */
 export default chart => {
 
   var d3 = require('d3');
 
-  chart.$inject = ['$timeout', '$log', '$window', '$state', 'lodash', 'moment', 'ChartService'];
+  chart.$inject = ['$timeout', '$log', '$window', '$state', 'lodash', 'moment', 'ChartService', 'Utilities', 'DEFAULTS'];
 
-  chart.directive('chart', ($timeout, $log, $window, $state, lodash, moment, ChartService) => {
+  chart.directive('chart', ($timeout, $log, $window, $state, lodash, moment, ChartService, Utilities, DEFAULTS) => {
 
     // Usage:
     // <chart></chart>
@@ -34,20 +33,6 @@ export default chart => {
       var DELAY = 1000;
       var BASE_UNIT = ($window.innerHeight > 1000) ? ($window.innerHeight - 100) : 1000;
       var t = 2 * Math.PI;
-      var MONTH_LABELS = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ];
 
       // VARS
       var dataset = [];
@@ -93,6 +78,7 @@ export default chart => {
           var segmentLabel = '';
           var isActive = false;
           var itemDate = '';
+          var dayOfWeek = '';
 
           if (i < month.startIndex) {
             // Shade offset segments same color as chartRing
@@ -107,6 +93,7 @@ export default chart => {
 
             // Increment current day index
             currentDayIndex = getDayOfWeekIndex(currentDayIndex);
+            dayOfWeek = DEFAULTS.DAYS_OF_WEEK[currentDayIndex];
           } else if (i <= DISPLAY_SEGMENTS) {
             fillColor = COLOR_FOREGROUND;
           }
@@ -118,8 +105,10 @@ export default chart => {
             textColor: textColor,
             label: segmentLabel,
             date: new Date(itemDate),
-            day: getDay(((i + 1) - month.startIndex)),
-            month: getMonth((month.index + 1))
+            day: Utilities.getDaySlug(((i + 1) - month.startIndex)),
+            month: Utilities.getMonthSlug((month.index + 1)),
+            year: scope.config.year,
+            dayOfWeek: dayOfWeek
           });
         }
       }
@@ -196,20 +185,20 @@ export default chart => {
               })
               .on('mouseover', function (d) {
                 if (d.data.isActive) {
-                  var monthIndex = getMonthIndex(d.data.date);
-                  var dayIndex = getDayIndex(d.data.date);
+                  var monthIndex = Utilities.getMonthIndexFromDate(d.data.date);
+                  var dayIndex = Utilities.getDayIndexFromDate(d.data.date);
                   ChartService.focusEvent(monthIndex, dayIndex, true);
                 }
               })
               .on('mouseout', function (d) {
                 if (d.data.isActive) {
-                  var monthIndex = getMonthIndex(d.data.date);
-                  var dayIndex = getDayIndex(d.data.date);
+                  var monthIndex = Utilities.getMonthIndexFromDate(d.data.date);
+                  var dayIndex = Utilities.getDayIndexFromDate(d.data.date);
                   ChartService.focusEvent(monthIndex, dayIndex, false);
                 }
               })
               .on('click', function (d) {
-                $state.go('calendar.day', {
+                $state.go('calendar.month.day', {
                   day: d.data.day,
                   month: d.data.month
                 });
@@ -233,7 +222,7 @@ export default chart => {
             .attr('dy', (outerRadius * -1) + 13)
             .attr('fill', scope.config.calendar[index].fillColor)
             .text(function (d, i) {
-              return MONTH_LABELS[d];
+              return DEFAULTS.MONTH_LABELS[d];
             });
         }
 
@@ -349,48 +338,10 @@ export default chart => {
         var fillColor = color;
 
         if ((index === (DAYS_OF_WEEK - 2)) || (index === (DAYS_OF_WEEK - 1))) {
-          fillColor = shadeColor(color, -0.5);
+          fillColor = Utilities.shadeColor(color, -0.5);
         }
 
         return fillColor;
-      }
-
-      //////////////////////////////////////////////////////////////////////
-      // UTILITIES
-      //////////////////////////////////////////////////////////////////////
-
-      /**
-       * Helper method to darken or lighten color
-       * @param  {string} color [HEX color code]
-       * @param  {int} percent [percentage to lighten or darken base color]
-       * @return {string} [Calculated HEX color code]
-       */
-      function shadeColor(color, percent) {
-        var f = parseInt(color.slice(1), 16);
-        var t = percent < 0 ? 0 : 255;
-        var p = percent < 0 ? percent * -1 : percent;
-        var R = f >> 16;
-        var G = f >> 8 & 0x00FF;
-        var B = f & 0x0000FF;
-        return '#' + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 +
-            (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B))
-          .toString(16).slice(1);
-      }
-
-      function getMonthIndex(date) {
-        return parseInt(moment(date).format('M')) - 1;
-      }
-
-      function getDayIndex(date) {
-        return parseInt(moment(date).format('D')) - 1;
-      }
-
-      function getDay(day) {
-        return (day < 10) ? '0' + day : day;
-      }
-
-      function getMonth(month) {
-        return (month < 10) ? '0' + month : month;
       }
 
       //////////////////////////////////////////////////////////////////////

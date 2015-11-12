@@ -1,6 +1,6 @@
-export default dayViewComponent => {
+export default monthViewComponent => {
 
-  dayViewComponent.run(appRun);
+  monthViewComponent.run(appRun);
 
   appRun.$inject = ['routerHelper'];
 
@@ -12,10 +12,10 @@ export default dayViewComponent => {
   function getStates() {
     return [
     {
-      state: 'calendar.month.day',
+      state: 'calendar.month',
       config: {
-        url: '/:day',
-        template: '<day-view></day-view>'
+        url: '/:month',
+        template: '<month-view></month-view>'
       }
     }];
   }

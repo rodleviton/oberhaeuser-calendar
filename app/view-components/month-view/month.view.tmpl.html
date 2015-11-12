@@ -1,0 +1,29 @@
+<div id="calendarMonthView" class="container overlay-view">
+  <div class="lightbox"></div>
+
+
+  <div class="lightbox-content">
+    <header class="header">
+      <h1>{{::vm.monthLabel}} {{::vm.year}}</h1>
+    </header>
+
+    <div class="card-grid">
+      <a ng-click="vm.viewDay(day.day)" ng-repeat="day in vm.monthConfig" class="card card-grid-item animate-fade" ng-style="{'background': vm.shade(day, $index)}">
+        <div class="card-inner" ng-style="{'background': vm.shade(day, $index)}">
+
+          <div class="card-header">
+            <h3 ng-style="{'color': day.textColor}">{{::vm.monthLabel}}
+              <strong>{{::day.day}}</strong>
+            </h3>
+            <h4 ng-style="{'color': day.textColor}">{{::day.dayOfWeek}}</h4>
+          </div>
+
+        </div>
+      </a>
+    </div>
+
+    <div ui-view class="slide-up"></div>        
+  </div>
+
+
+</div>

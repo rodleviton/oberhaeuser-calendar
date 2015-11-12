@@ -7,6 +7,7 @@ export default calendarViewComponent => {
 
     var directive = {
       restrict: 'AE',
+      replace: true,
       scope: {},
       template: require('./calendar.view.tmpl.html'),
       controller: 'CalendarController',

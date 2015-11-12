@@ -1,14 +1,13 @@
-/* jslint bitwise: true */
 export default chart => {
 
   var d3 = require('d3');
 
   chart.factory('ChartService', ChartService);
 
-  ChartService.$inject = ['$log', '$timeout', 'moment'];
+  ChartService.$inject = ['$log', '$timeout', 'moment', 'lodash', 'Utilities'];
 
   /* @ngInject */
-  function ChartService($log, $timeout, moment) {
+  function ChartService($log, $timeout, moment, lodash, Utilities) {
     // Constants
 
     // Base Colours
@@ -36,12 +35,18 @@ export default chart => {
       setCalendarConfig: setCalendarConfig,
       setChartConfig: setChartConfig,
       setEventsConfig: setEventsConfig,
+      getMonth: getMonth,
+      getDay: getDay,
       markCurrentDay: markCurrentDay,
       markEvents: markEvents,
       focusEvent: focusEvent
     };
 
     return service;
+
+    //////////////////////////////////////////////////////////////////////
+    // SETTERS
+    //////////////////////////////////////////////////////////////////////
 
     function setCalendarConfig(config) {
       service.data.config.calendar = config;
@@ -55,13 +60,28 @@ export default chart => {
       service.data.config.events = config;
     }
 
-    /**
-     * Colours ring segment based on focus state
-     */
-    function focusEvent(monthIndex, dayIndex, isFocused) {
-      monthIndex = monthIndex;
-      dayIndex = (dayIndex + getStartIndex(monthIndex));
-      focusSegment(monthIndex, dayIndex, isFocused);
+    //////////////////////////////////////////////////////////////////////
+    // GETTERS
+    //////////////////////////////////////////////////////////////////////
+
+    function getMonth(year, month) {
+      $log.debug('Getting month for: ' + year, month);
+
+      var monthObj = service.data.config.chart[Utilities.getMonthIndex(month)];
+
+      return lodash.filter(monthObj, {
+        isActive: true
+      });
+    }
+
+    function getDay(year, month, day) {
+      $log.debug('Getting day for: ' + year, month, day);
+
+      var dayObj = lodash.find(service.data.config.chart[Utilities.getMonthIndex(month)], {
+        'day': day
+      });
+
+      return dayObj;
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -96,6 +116,16 @@ export default chart => {
     //////////////////////////////////////////////////////////////////////
     // HELPERS
     //////////////////////////////////////////////////////////////////////
+
+    /**
+     * Colours ring segment based on focus state
+     */
+    function focusEvent(monthIndex, dayIndex, isFocused) {
+      monthIndex = monthIndex;
+      dayIndex = (dayIndex + getStartIndex(monthIndex));
+      focusSegment(monthIndex, dayIndex, isFocused);
+    }
+
     function focusSegment(monthIndex, dayIndex, isFocused) {
       // Update row focus
       d3.select('g.chart-ring-' + monthIndex)
@@ -107,7 +137,7 @@ export default chart => {
 
           if (isFocused) {
             if (d.data.isActive && !d.data.isEvent && !d.data.isCurrentDay) {
-              fillColour = shadeColor(d.data.fillColor, -0.5);
+              fillColour = Utilities.shadeColor(d.data.fillColor, -0.5);
             }
           }
 
@@ -160,36 +190,6 @@ export default chart => {
 
     function getStartIndex(index) {
       return service.data.config.calendar[index].startIndex;
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    // UTILITIES
-    //////////////////////////////////////////////////////////////////////
-
-    /**
-     * Helper method to darken or lighten color
-     * @param  {string} color [HEX color code]
-     * @param  {int} percent [percentage to lighten or darken base color]
-     * @return {string} [Calculated HEX color code]
-     */
-    function shadeColor(color, percent) {
-      var f = parseInt(color.slice(1), 16);
-      var t = percent < 0 ? 0 : 255;
-      var p = percent < 0 ? percent * -1 : percent;
-      var R = f >> 16;
-      var G = f >> 8 & 0x00FF;
-      var B = f & 0x0000FF;
-      return '#' + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 +
-          (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B))
-        .toString(16).slice(1);
-    }
-
-    function getMonthIndex(date) {
-      return parseInt(moment(date).format('M')) - 1;
-    }
-
-    function getDayIndex(date) {
-      return parseInt(moment(date).format('D')) - 1;
     }
 
   }

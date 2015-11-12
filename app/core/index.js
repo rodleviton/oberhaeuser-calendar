@@ -1,11 +1,14 @@
 export default 'app.core';
 
+require('../styles/main.scss');
 var ngLodash = require('ng-lodash');
 var moment = require('moment');
 var angularMoment = require('angular-moment');
 
 const appCore = angular.module('app.core', [
+  require('angular-animate'),
   require('angular-ui-router/release/angular-ui-router'),
+  'ngAnimate',
   'ngLodash',
   'angularMoment'
 ]);

@@ -1,15 +1,17 @@
-<div class="lightbox"></div>
+<div id="calendarDayView" class="container">
+  <div class="lightbox lightbox-hidden"></div>
 
-<div class="card">
-  <div class="card-inner">
+  <div class="card card-center" ng-style="{'background': vm.dayConfig.fillColor}">
+    <div class="card-inner">
 
-    <div class="card-header">
-      <h1>{{vm.month}} <strong>{{::vm.day}}</strong></h1>
+      <div class="card-header">
+        <h3 ng-style="{'color': vm.dayConfig.textColor}">{{vm.month}} <strong>{{::vm.dayConfig.day}}</strong></h3>
+      </div>
+
+      <div class="card-body">
+        <h4 ng-style="{'color': vm.dayConfig.textColor}">Today's Events</h4>
+      </div>
+
     </div>
-
-    <div class="card-body">
-      <h3>Today's Events</h3>
-    </div>
-
   </div>
 </div>

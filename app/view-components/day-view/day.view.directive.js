@@ -7,6 +7,7 @@ export default dayViewComponent => {
 
     var directive = {
       restrict: 'AE',
+      replace: true,
       scope: {},
       template: require('./day.view.tmpl.html'),
       controller: 'DayController',
