@@ -2,9 +2,11 @@
   <div class="lightbox"></div>
 
 
-  <div class="lightbox-content">
+  <div class="lightbox-content caledar-month-view">
     <header class="header">
       <h1>{{::vm.monthLabel}} {{::vm.year}}</h1>
+
+      <button class="btn-close" ng-click="vm.closeView()">&times;</button>
     </header>
 
     <div class="card-grid">
@@ -22,8 +24,7 @@
       </a>
     </div>
 
-    <div ui-view class="slide-up"></div>        
   </div>
 
-
+  <div ui-view class="slide-up"></div>
 </div>

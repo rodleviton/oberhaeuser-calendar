@@ -33,3 +33,23 @@
     }
   }
 }
+
+.btn-close {
+  color: #fff;
+  background: none;
+  font-size: 3em;
+  line-height: 0.75em;
+  font-weight: 200;
+  padding: 22px 24px;
+  opacity: 0.5;
+  transition: 150ms ease opacity;
+
+  &:hover {
+    background: none;
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

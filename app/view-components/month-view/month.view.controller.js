@@ -7,12 +7,14 @@ export default monthViewComponent => {
   /* @ngInject */
   function MonthController($log, $stateParams, $state, $timeout, ChartService, Utilities, DEFAULTS) {
     var vm = this;
+
     vm.activate = activate;
     vm.getMonthLabel = getMonthLabel;
     vm.month = $stateParams.month;
     vm.year = $stateParams.year;
     vm.shade = shade;
     vm.viewDay = viewDay;
+    vm.closeView = closeView;
 
     function activate() {
       var monthConfig = ChartService.getMonth(vm.year, vm.month);
@@ -41,6 +43,10 @@ export default monthViewComponent => {
       $state.go('calendar.month.day', {
         day: day
       });
+    }
+
+    function closeView() {
+      $state.go('calendar');
     }
 
     vm.activate();

@@ -183,11 +183,15 @@
   left: 50%;
   top: 35%;
   transform: translate(-50%, -50%);
+  -webkit-box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
+  box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
+
   h3 {
     font-size: 2.5em;
   }
   h4 {
-    font-size: 2em;
+    font-size: 1.5em;
   }
   .card-header {
     margin-bottom: 20px;
@@ -197,9 +201,15 @@
       font-size: 1.25em;
     }
   }
-  -webkit-box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
-  box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
+}
+
+// Button
+.card {
+  .btn-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 // Hover States
