@@ -13,11 +13,18 @@
       });
     } catch (e) {}
   </script>
-<link rel="shortcut icon" href="favicon.ico"><link href="main.css?a380e7a3539573340347e6cc81b36ac5" rel="stylesheet"></head>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.css?922dc992997182e352fd7b9b6c770cd8" rel="stylesheet"></head>
 
 <body>
 
   <ui-view></ui-view>
+
+  <script>
+    function init() {
+      window.initGapi();
+    }
+  </script>
+  <script src="https://apis.google.com/js/client.js?onload=init"></script>
 
 <script src="bundle.js"></script></body>
 
