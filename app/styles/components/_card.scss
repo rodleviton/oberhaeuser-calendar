@@ -1,0 +1,170 @@
+////////////////////////////////////////////////
+// Card Grid
+////////////////////////////////////////////////
+.card-grid-item {
+  display: inline-block;
+  width: 20%;
+  margin-right: 0;
+  margin-bottom: 0.5%;
+}
+
+////////////////////////////////////////////////
+// Card
+////////////////////////////////////////////////
+.card {
+  background: #fff;
+  color: #000;
+  z-index: 15;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: $raleway;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: none;
+    strong {
+      font-weight: 700;
+    }
+  }
+  h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+  }
+  h4 {
+    font-family: $raleway;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: none;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    strong {
+      font-weight: 700;
+    }
+  }
+}
+.card-inner {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+}
+.card-header {
+  margin-bottom: 20px;
+}
+.card-body {
+  h3 {
+    font-family: $raleway;
+    font-style: normal;
+    font-weight: 300;
+  }
+}
+
+// Card Grid Item
+.card.card-grid-item {
+  position: relative;
+
+  h3 {
+    font-size: 1.75em;
+  }
+  h4 {
+    font-size: 1.25em;
+  }
+  .card-header {
+    margin-bottom: 20px;
+  }
+}
+
+// Centered Card
+.card.card-center {
+  width: 400px;
+  height: 425px;
+  position: absolute;
+  z-index: 200;
+  left: 50%;
+  top: 35%;
+  margin-left: -200px;
+  margin-top: -200px;
+  -webkit-box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
+  box-shadow: 0 0 200px 6px rgba(0,0,0,0.5);
+
+  &.has-events {
+    margin-left: -400px;
+  }
+
+  h3 {
+    font-size: 2.5em;
+  }
+  h4 {
+    font-size: 1.5em;
+  }
+  .card-header {
+    margin-bottom: 20px;
+  }
+  .card-body {
+    h3 {
+      font-size: 1.25em;
+    }
+  }
+}
+// Button
+.card {
+  .btn-close {
+    position: absolute;
+    z-index: 15;
+    right: 0;
+    top: 0;
+  }
+}
+
+// Hover States
+a.card {
+  position: relative;
+
+  .card-inner {
+    padding: 10px;
+    margin: 10px;
+  }
+  &:hover {
+    cursor: pointer;
+    .card-hover-bg {
+      opacity: 0.25;
+    }
+  }
+}
+
+
+.card-hover-bg {
+  transition: 250ms ease opacity;
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+}
+
+
+.events-container {
+  width: 400px;
+  height: 425px;
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  top: 35%;
+  margin-left: 0;
+  margin-top: -200px;
+
+  .card {
+    border-bottom: 1px solid #eee;
+
+      h3 {
+        margin-bottom: 20px;
+      }
+  }
+}

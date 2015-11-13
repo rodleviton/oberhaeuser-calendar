@@ -2,10 +2,10 @@ export default calendarViewComponent => {
 
   calendarViewComponent.controller('CalendarController', CalendarController);
 
-  CalendarController.$inject = ['$log', '$stateParams', '$timeout', 'ChartService'];
+  CalendarController.$inject = ['$log', '$rootScope', '$stateParams', '$timeout', '$window', 'GapiService', 'ChartService'];
 
   /* @ngInject */
-  function CalendarController($log, $stateParams, $timeout, ChartService) {
+  function CalendarController($log, $rootScope, $stateParams, $timeout, $window, GapiService, ChartService) {
     var vm = this;
     var DAYS_OF_WEEK = [1, 2, 3, 4, 5, 6, 0];
 
@@ -64,6 +64,13 @@ export default calendarViewComponent => {
         currentDate: vm.getCurrentDay()
       };
     }
+
+    $window.initGapi = function () {
+      GapiService.checkAuth().then(function (response) {
+        // Broadcast this incase a view is waiting for the data
+        $rootScope.$broadcast('GAPI_AUTHENTICATED');
+      });
+    };
 
   }
 };

@@ -65,8 +65,6 @@ export default chart => {
     //////////////////////////////////////////////////////////////////////
 
     function getMonth(year, month) {
-      $log.debug('Getting month for: ' + year, month);
-
       var monthObj = service.data.config.chart[Utilities.getMonthIndex(month)];
 
       return lodash.filter(monthObj, {
@@ -75,8 +73,6 @@ export default chart => {
     }
 
     function getDay(year, month, day) {
-      $log.debug('Getting day for: ' + year, month, day);
-
       var dayObj = lodash.find(service.data.config.chart[Utilities.getMonthIndex(month)], {
         'day': day
       });

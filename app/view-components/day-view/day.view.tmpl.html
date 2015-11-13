@@ -1,20 +1,33 @@
-<div id="calendarDayView" class="container">
+<div class="container" id="calendarDayView">
   <div class="lightbox lightbox-hidden"></div>
 
-  <div class="card card-center" ng-style="{'background': vm.dayConfig.fillColor}">
+  <div class="card card-center animate-up-enter animate-down-exit" ng-class="{'has-events': vm.events}" ng-if="vm.showCard" ng-style="{'background': vm.dayConfig.fillColor}">
 
-    <button class="btn-close" ng-click="vm.closeView()">&times;</button>
+    <button class="btn-close" ng-click="vm.closeView()" ng-style="{'color': vm.dayConfig.textColor}">&times;</button>
 
     <div class="card-inner">
 
       <div class="card-header">
-        <h3 ng-style="{'color': vm.dayConfig.textColor}">{{vm.month}} <strong>{{::vm.dayConfig.day}}</strong></h3>
+        <h3 ng-style="{'color': vm.dayConfig.textColor}">{{vm.month}}
+          <strong>{{::vm.dayConfig.day}}</strong>
+        </h3>
+        <h4 ng-style="{'color': vm.dayConfig.textColor}">{{::vm.dayConfig.dayOfWeek}}</h4>
       </div>
 
-      <div class="card-body">
-        <h4 ng-style="{'color': vm.dayConfig.textColor}">Today's Events</h4>
-      </div>
+      <div class="card-body"></div>
 
+    </div>
+  </div>
+
+  <div class="events-container">
+    <div class="card animate-fade" ng-repeat="event in vm.events">
+      <div class="card-inner" ng-style="{'background': vm.shade(day, $index)}">
+        <div class="card-header">
+          <h3 ng-style="{'color': day.textColor}">{{::event.summary}}</h3>
+          <h4><strong>From: </strong>{{event.start.dateTime | amDateFormat:'h:mm a'}} </h4>
+          <h4><strong>To: </strong>{{event.end.dateTime | amDateFormat:'h:mm a'}} </h4>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -44,12 +44,13 @@
   opacity: 0.5;
   transition: 150ms ease opacity;
 
-  &:hover {
+  &:hover, &:active {
     background: none;
     opacity: 1;
   }
 
   &:focus {
+    background: none;
     outline: none;
   }
 }

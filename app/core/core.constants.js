@@ -1,5 +1,8 @@
+/* global gapi:false  */
 export default appCore => {
-  appCore.constant('DEFAULTS', {
+  appCore
+  .constant('gapi', gapi)
+  .constant('DEFAULTS', {
     'MONTH_LABELS': [
       'January',
       'February',

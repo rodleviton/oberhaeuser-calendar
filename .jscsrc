@@ -2,6 +2,7 @@
   "preset": "google",
   "esnext": true,
   "maximumLineLength": 140,
+  "requireCamelCaseOrUpperCaseIdentifiers": null,
   "disallowSpacesInAnonymousFunctionExpression": null,
   "excludeFiles": ["node_modules/**"]
 }

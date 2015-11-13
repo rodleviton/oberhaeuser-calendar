@@ -22,7 +22,7 @@ export default monthViewComponent => {
 
       $timeout(function () {
         vm.monthConfig = monthConfig;
-      }, 0);
+      }, 250);
     }
 
     function getMonthLabel() {

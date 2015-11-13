@@ -19,6 +19,13 @@
 
   <ui-view></ui-view>
 
+  <script>
+    function init() {
+      window.initGapi();
+    }
+  </script>
+  <script src="https://apis.google.com/js/client.js?onload=init"></script>
+
 </body>
 
 </html>

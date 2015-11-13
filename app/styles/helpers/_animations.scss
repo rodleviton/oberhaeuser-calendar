@@ -1,0 +1,116 @@
+////////////////////////////////////////////////
+// Animations
+////////////////////////////////////////////////
+// Fade
+.animate-fade.ng-enter {
+  transition: 1000ms ease all;
+  opacity: 0;
+}
+.animate-fade.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive enter animation */
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+
+  /* in case the stagger doesn't work then these two values
+     must be set to 0 to avoid an accidental CSS inheritance */
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+.animate-fade.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+////////////////////////////////////////////////
+// Slide Up Enter
+////////////////////////////////////////////////
+.animate-up-enter {
+  position: absolute;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.ng-enter.animate-up-enter {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 2000px, 0);
+  -moz-transform: translate3d(0, 2000px, 0);
+  transform: translate3d(0, 2000px, 0);
+}
+.ng-enter-active.animate-up-enter {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+////////////////////////////////////////////////
+// View Transitions
+////////////////////////////////////////////////
+[ui-view].animate-view-up-enter.ng-enter,
+[ui-view].animate-view-down-exit.ng-leave {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+[ui-view].ng-enter.animate-view-up-enter {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 2000px, 0);
+  -moz-transform: translate3d(0, 2000px, 0);
+  transform: translate3d(0, 2000px, 0);
+}
+[ui-view].ng-enter-active.animate-view-up-enter {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+[ui-view].ng-leave.animate-view-down-exit {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+[ui-view].ng-leave-active.animate-view-down-exit {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 2000px, 0);
+  -moz-transform: translate3d(0, 2000px, 0);
+  transform: translate3d(0, 2000px, 0);
+}
+[ui-view].animate-view-fade.ng-enter,
+[ui-view].animate-view-fade.ng-leave {
+  z-index: 999999;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+[ui-view].ng-enter.animate-view-fade {
+  opacity: 0;
+}
+[ui-view].ng-enter-active.animate-view-fade {
+  opacity: 1;
+}
+[ui-view].ng-leave.animate-view-fade {
+  opacity: 1;
+}
+[ui-view].ng-leave-active.animate-view-fade {
+  opacity: 0;
+}
