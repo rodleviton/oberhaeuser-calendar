@@ -51,6 +51,7 @@ module.exports = function (options) {
     }),
     new HtmlWebpackPlugin({
       inject: true,
+      extraFiles: 'app/images/logo-2015.svg',
       template: 'app/index.html',
       favicon: 'app/favicons/favicon.ico',
       minify: true
