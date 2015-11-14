@@ -8,25 +8,11 @@ export default chart => {
 
   /* @ngInject */
   function ChartService($log, $timeout, moment, lodash, Utilities) {
-    // Constants
-
-    // Base Colours
-    var CURRENT_DAY_FILL_BASE = '#da0138';
-    var CURRENT_DAY_TEXT_BASE = '#ffffff';
-    var EVENT_FILL_BASE = '#ffffff';
-    var EVENT_TEXT_BASE = '#000000';
-
-    // Highlights
-    var CURRENT_DAY_FILL_HIGHLIGHT = '#da0138';
-    var CURRENT_DAY_TEXT_HIGHLIGHT = '#ffffff';
-    var EVENT_FILL_HIGHLIGHT = '#e15f01';
-    var EVENT_TEXT_HIGHLIGHT = '#ffffff';
-    var SEGMENT_FILL_HIGHLIGHT = '#000000';
-    var SEGMENT_TEXT_HIGHLIGHT = '#ffffff';
 
     var service = {
       data: {
         config: {
+          defaults: {},
           calendar: {},
           chart: {},
           events: {}
@@ -35,6 +21,7 @@ export default chart => {
       setCalendarConfig: setCalendarConfig,
       setChartConfig: setChartConfig,
       setEventsConfig: setEventsConfig,
+      setDefaultsConfig: setDefaultsConfig,
       getMonth: getMonth,
       getDay: getDay,
       markCurrentDay: markCurrentDay,
@@ -58,6 +45,10 @@ export default chart => {
 
     function setEventsConfig(config) {
       service.data.config.events = config;
+    }
+
+    function setDefaultsConfig(config) {
+      service.data.config.defaults = config;
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -89,8 +80,8 @@ export default chart => {
       var currentDay = parseInt(moment().format('D')) - 1;
       var day = service.data.config.chart[currentMonth][currentDay + getStartIndex(currentMonth)];
 
-      day.fillColor = CURRENT_DAY_FILL_BASE;
-      day.textColor = CURRENT_DAY_TEXT_BASE;
+      day.fillColor = service.data.config.defaults.CURRENT_DAY_FILL_BASE;
+      day.textColor = service.data.config.defaults.CURRENT_DAY_TEXT_BASE;
       day.isCurrentDay = true;
     }
 
@@ -101,8 +92,8 @@ export default chart => {
         var day = service.data.config.chart[eventMonth][eventDay + getStartIndex(eventMonth)];
 
         if (!day.isCurrentDay) {
-          day.fillColor = EVENT_FILL_BASE;
-          day.textColor = EVENT_TEXT_BASE;
+          day.fillColor = service.data.config.defaults.EVENT_FILL_BASE;
+          day.textColor = service.data.config.defaults.EVENT_TEXT_BASE;
         }
 
         day.isEvent = true;
@@ -150,11 +141,11 @@ export default chart => {
 
           if (isFocused) {
             if (d.data.isEvent) {
-              fillColor = EVENT_FILL_HIGHLIGHT;
+              fillColor = service.data.config.defaults.EVENT_FILL_HIGHLIGHT;
             } else if (d.data.isCurrentDay) {
-              fillColor = CURRENT_DAY_FILL_HIGHLIGHT;
+              fillColor = service.data.config.defaults.CURRENT_DAY_FILL_HIGHLIGHT;
             } else {
-              fillColor = SEGMENT_FILL_HIGHLIGHT;
+              fillColor = service.data.config.defaults.SEGMENT_FILL_HIGHLIGHT;
             }
           }
 
@@ -172,11 +163,11 @@ export default chart => {
 
           if (isFocused) {
             if (d.data.isEvent) {
-              textColor = EVENT_TEXT_HIGHLIGHT;
+              textColor = service.data.config.defaults.EVENT_TEXT_HIGHLIGHT;
             } else if (d.data.isCurrentDay) {
-              textColor = CURRENT_DAY_TEXT_HIGHLIGHT;
+              textColor = service.data.config.defaults.CURRENT_DAY_TEXT_HIGHLIGHT;
             } else {
-              textColor = SEGMENT_TEXT_HIGHLIGHT;
+              textColor = service.data.config.defaults.SEGMENT_TEXT_HIGHLIGHT;
             }
           }
 

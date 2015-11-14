@@ -3,8 +3,10 @@
   position: absolute;
   bottom: 0;
   padding: 40px;
+  hr {
+    margin: 0;
+  }
   h4 {
-    border-top: 10px solid #fff;
     padding: 25px 0 0;
     float: left;
     display: block;
@@ -16,6 +18,15 @@
   .events {
     clear: both;
     padding-top: 20px;
+  }
+}
+.theme-2013 {
+  .federal-holidays {
+    hr {
+      border-top: 10px solid #fff;
+    }
+  }
+  .events {
     li {
       a {
         display: inline-block;
@@ -24,7 +35,29 @@
         span {
           color: #666;
         }
-
+        &:hover {
+          cursor: pointer;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.theme-2015 {
+  .federal-holidays {
+    hr {
+      border-top: 1px dotted #fff;
+    }
+  }
+  .events {
+    li {
+      a {
+        display: inline-block;
+        line-height: 2em;
+        color: #ccc;
+        span {
+          color: #3db657;
+        }
         &:hover {
           cursor: pointer;
           color: #fff;

@@ -1,0 +1,72 @@
+{
+  "defaults": {
+    "COLOR_BACKGROUND": "#0f1a3a",
+    "COLOR_FOREGROUND": "#142956",
+    "CURRENT_DAY_FILL_BASE": "#da0138",
+    "CURRENT_DAY_TEXT_BASE": "#ffffff",
+    "EVENT_FILL_BASE": "#ffffff",
+    "EVENT_TEXT_BASE": "#000000",
+    "CURRENT_DAY_FILL_HIGHLIGHT": "#da0138",
+    "CURRENT_DAY_TEXT_HIGHLIGHT": "#ffffff",
+    "EVENT_FILL_HIGHLIGHT": "#e15f01",
+    "EVENT_TEXT_HIGHLIGHT": "#ffffff",
+    "SEGMENT_FILL_HIGHLIGHT": "#000000",
+    "SEGMENT_TEXT_HIGHLIGHT": "ffffff"
+  },
+  "stamp": {
+    "COLOR_BACKGROUND": "#142956",
+    "TEXT_BASE": "#ffffff"
+  },
+  "events": {
+
+  },
+  "months": [{
+    "index": 0,
+    "fillColor": "#3db657",
+    "textColor": "#ffffff"
+  }, {
+    "index": 1,
+    "fillColor": "#3db657",
+    "textColor": "#ffffff"
+  }, {
+    "index": 2,
+    "fillColor": "#3db657",
+    "textColor": "#ffffff"
+  }, {
+    "index": 3,
+    "fillColor": "#72c86f",
+    "textColor": "#ffffff"
+  }, {
+    "index": 4,
+    "fillColor": "#72c86f",
+    "textColor": "#ffffff"
+  }, {
+    "index": 5,
+    "fillColor": "#72c86f",
+    "textColor": "#ffffff"
+  }, {
+    "index": 6,
+    "fillColor": "#4465c2",
+    "textColor": "#ffffff"
+  }, {
+    "index": 7,
+    "fillColor": "#4465c2",
+    "textColor": "#ffffff"
+  }, {
+    "index": 8,
+    "fillColor": "#4465c2",
+    "textColor": "#ffffff"
+  }, {
+    "index": 9,
+    "fillColor": "#3652a6",
+    "textColor": "#ffffff"
+  }, {
+    "index": 10,
+    "fillColor": "#3652a6",
+    "textColor": "#ffffff"
+  }, {
+    "index": 11,
+    "fillColor": "#3652a6",
+    "textColor": "#ffffff"
+  }]
+}

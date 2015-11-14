@@ -1,86 +1,50 @@
 [
    {
       "index": 0,
-      "fillColor":"#90b70c",
-      "textColor": "#ffffff",
-      "days":31,
-      "startIndex":"0"
+      "days":31
    },
    {
       "index": 1,
-      "fillColor":"#90b70c",
-      "textColor": "#ffffff",
-      "days":"0",
-      "startIndex":"0"
+      "days":"0"
    },
    {
       "index": 2,
-      "fillColor":"#587211",
-      "textColor": "#ffffff",
-      "days":31,
-      "startIndex":"0"
+      "days":31
    },
    {
       "index": 3,
-      "fillColor":"#587211",
-      "textColor": "#ffffff",
-      "days":30,
-      "startIndex":"0"
+      "days":30
    },
    {
       "index": 4,
-      "fillColor":"#3d530b",
-      "textColor": "#ffffff",
-      "days":31,
-      "startIndex":"0"
+      "days":31
    },
    {
       "index": 5,
-      "fillColor":"#3d530b",
-      "textColor": "#ffffff",
-      "days":30,
-      "startIndex":"0"
+      "days":30
    },
    {
       "index": 6,
-      "fillColor":"#0199dc",
-      "textColor": "#ffffff",
-      "days":31,
-      "startIndex":"0"
+      "days":31
    },
    {
       "index": 7,
-      "fillColor":"#0199dc",
-      "textColor": "#ffffff",
-      "days":31,
-      "startIndex":"0"
+      "days":31
    },
    {
       "index": 8,
-      "fillColor":"#025d89",
-      "textColor": "#ffffff",
-      "days":30,
-      "startIndex":"0"
+      "days":30
    },
    {
       "index": 9,
-      "fillColor":"#025d89",
-      "textColor": "#ffffff",
-      "days":31,
-      "startIndex":"0"
+      "days":31
    },
    {
       "index": 10,
-      "fillColor":"#014365",
-      "textColor": "#ffffff",
-      "days":30,
-      "startIndex":"0"
+      "days":30
    },
    {
       "index": 11,
-      "fillColor":"#014365",
-      "textColor": "#ffffff",
-      "days":31,
-      "startIndex":"0"
+      "days":31
    }
 ]

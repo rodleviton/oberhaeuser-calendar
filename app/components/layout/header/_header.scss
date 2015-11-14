@@ -1,4 +1,4 @@
-#calendarHeader.theme-calendar {
+#calendarHeader {
   padding: 20px 40px;
   float: left;
 
@@ -7,6 +7,46 @@
 
     &:hover, &:focus {
       color: #ccc;
+    }
+  }
+}
+
+.theme-2013 {
+  #calendarHeader {
+    hr {
+      display: none;
+    }
+
+    a, a:visited {
+      color: $dark-gray;
+
+      &:hover, &:focus {
+        color: #ccc;
+      }
+    }
+  }
+}
+
+.theme-2015 {
+  #calendarHeader {
+    h1 {
+      margin-bottom: 0;
+    }
+    hr {
+      border-top: 1px dotted #fff;
+      margin: 10px 0 20px 0;
+    }
+
+    p {
+      color: #3db657;
+    }
+
+    a, a:visited {
+      color: #3652a6;
+
+      &:hover, &:focus {
+        color: #4465c2;
+      }
     }
   }
 }

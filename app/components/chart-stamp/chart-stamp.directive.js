@@ -9,7 +9,7 @@ export default chartStamp => {
 
     var directive = {
       restrict: 'AE',
-      replace: true,
+      replace: false,
       template: require('./chart-stamp.tmpl.html'),
       scope: {
         config: '='

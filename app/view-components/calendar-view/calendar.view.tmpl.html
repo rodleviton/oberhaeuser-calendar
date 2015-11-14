@@ -1,4 +1,4 @@
-<div id="calendarView" class="container">
+<div id="calendarView" class="container" ng-style="{'background': vm.theme.defaults.COLOR_BACKGROUND}">
   <section>
 
     <aside>
@@ -11,7 +11,7 @@
     <article>
       <div class="calendar">
         <div chart-labels>
-          <chart-stamp></chart-stamp>
+          <chart-stamp config="vm.stampConfig"></chart-stamp>
         </div>
         <div class="chart-rings-container">
           <chart config="vm.config"></chart>
@@ -21,5 +21,5 @@
 
   </section>
 
-  <div ui-view class="animate-view-fade"></div>  
+  <div ui-view class="animate-view-fade"></div>
 </div>

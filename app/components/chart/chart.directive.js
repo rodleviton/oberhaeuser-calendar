@@ -23,8 +23,6 @@ export default chart => {
     function link(scope, element, attrs) {
 
       // CONSTANTS
-      var COLOR_BACKGROUND = '#29272c';
-      var COLOR_FOREGROUND = '#333136';
       var DAYS_OF_WEEK = 7;
       var MAX_DAYS = 31;
       var DISPLAY_SEGMENTS = 39; // Total segments to display on screen
@@ -42,6 +40,7 @@ export default chart => {
         ChartService.setCalendarConfig(scope.config.calendar);
         ChartService.setChartConfig(dataset);
         ChartService.setEventsConfig(scope.config.events);
+        ChartService.setDefaultsConfig(scope.config.defaults);
 
         // Chart
         configureDataset();
@@ -82,7 +81,7 @@ export default chart => {
 
           if (i < month.startIndex) {
             // Shade offset segments same color as chartRing
-            fillColor = COLOR_FOREGROUND;
+            fillColor = scope.config.defaults.COLOR_FOREGROUND;
 
           } else if (i < (month.days + month.startIndex)) {
 
@@ -95,7 +94,7 @@ export default chart => {
             currentDayIndex = getDayOfWeekIndex(currentDayIndex);
             dayOfWeek = DEFAULTS.DAYS_OF_WEEK[currentDayIndex];
           } else if (i <= DISPLAY_SEGMENTS) {
-            fillColor = COLOR_FOREGROUND;
+            fillColor = scope.config.defaults.COLOR_FOREGROUND;
           }
 
           dataset[index].push({
@@ -338,7 +337,7 @@ export default chart => {
         var fillColor = color;
 
         if ((index === (DAYS_OF_WEEK - 2)) || (index === (DAYS_OF_WEEK - 1))) {
-          fillColor = Utilities.shadeColor(color, -0.5);
+          fillColor = Utilities.shadeColor(color, -0.3);
         }
 
         return fillColor;
