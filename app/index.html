@@ -24,7 +24,9 @@
 
   <script>
     function init() {
-      window.initGapi();
+      setTimeout(function() {
+        window.initGapi();
+      }, 1000);
     }
   </script>
   <script src="https://apis.google.com/js/client.js?onload=init"></script>
