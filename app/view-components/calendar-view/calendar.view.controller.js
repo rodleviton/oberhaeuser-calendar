@@ -68,9 +68,14 @@
          theme = currentYear;
        }
 
-       // Add class to body
        var body = angular.element($document[0].body);
-       body.removeAttr('class');
+
+       // Remove existing theme classes
+       angular.forEach(themes, function(item) {
+         body.removeClass('theme-' + item);
+       });
+
+       // Add class to body
        body.addClass('theme-' + theme);
 
        return require('./config/themes/theme-' + theme + '.json');
