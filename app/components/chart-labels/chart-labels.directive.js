@@ -32,7 +32,7 @@ export default chartLabels => {
       // Constants
       var DISPLAY_SEGMENTS = 39; // Total segments to display on screen
       var TOTAL_SEGMENTS = 48;
-      var BASE_UNIT = ($window.innerHeight > 1000) ? ($window.innerHeight - 100) : 1000;
+      var BASE_UNIT = ($window.innerHeight > 1000) ? (($window.innerHeight - 100) - 20) : 1000;
 
       // Vars
       var dayOfWeekIndex = 0;

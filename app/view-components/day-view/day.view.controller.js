@@ -2,14 +2,18 @@ export default dayViewComponent => {
 
   dayViewComponent.controller('DayController', DayController);
 
-  DayController.$inject = ['$log', '$scope', '$state', '$stateParams', '$timeout', 'ChartService', 'GapiService', 'Utilities', 'DEFAULTS'];
+  DayController.$inject = ['$log', '$scope', '$state', '$stateParams', '$http', '$timeout', 'ChartService', 'GapiService', 'Utilities',
+    'DEFAULTS'
+  ];
 
   /* @ngInject */
-  function DayController($log, $scope, $state, $stateParams, $timeout, ChartService, GapiService, Utilities, DEFAULTS) {
+  function DayController($log, $scope, $state, $stateParams, $http, $timeout, ChartService, GapiService, Utilities, DEFAULTS) {
     var vm = this;
 
     vm.activate = activate;
     vm.closeView = closeView;
+    vm.shade = shade;
+    vm.getWeather = getWeather;
     vm.showCard = false;
 
     function activate() {
@@ -29,10 +33,37 @@ export default dayViewComponent => {
         $scope.$on('GAPI_AUTHENTICATED', getEvents);
       }
 
+      vm.getWeather();
     }
 
     function closeView() {
       $state.go('calendar.month');
+    }
+
+    function getWeather() {
+      $log.debug('getting weather');
+
+      $http({
+        method: 'GET',
+        url: 'http://api.openweathermap.org/data/2.5/weather?q=Melbourne,au&units=metric&appid=b4f9054600e35ea0971b0981dadd9731'
+      }).then(function successCallback(response) {
+        $log.debug(response);
+        vm.tempMin = response.data.main.temp_min;
+        vm.tempMax = response.data.main.temp_max;
+        vm.city = response.data.name;
+      }, function errorCallback(response) {
+        $log.debug(response);
+      });
+    }
+
+    function shade(item, index) {
+      var fillColor = item.fillColor;
+
+      if (!item.isCurrentDay && !item.isEvent) {
+        fillColor = Utilities.shadeColor(item.fillColor, ((index + 1) * 0.10));
+      }
+
+      return fillColor;
     }
 
     function getEvents() {

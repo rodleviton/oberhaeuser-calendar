@@ -1,11 +1,11 @@
 <div class="container" id="calendarDayView">
   <div class="lightbox lightbox-hidden"></div>
 
-  <div class="card card-center animate-up-enter animate-down-exit" ng-class="{'has-events': vm.events}" ng-if="vm.showCard" ng-style="{'background': vm.dayConfig.fillColor}">
+  <div class="card card-center animate-up-enter animate-down-exit" ng-class="{'has-events': vm.events}" ng-if="vm.showCard">
 
     <button class="btn-close" ng-click="vm.closeView()" ng-style="{'color': vm.dayConfig.textColor}">&times;</button>
 
-    <div class="card-inner">
+    <div class="card-inner" ng-style="{'background': vm.dayConfig.fillColor}">
 
       <div class="card-header">
         <h3 ng-style="{'color': vm.dayConfig.textColor}">{{vm.month}}
@@ -14,20 +14,30 @@
         <h4 ng-style="{'color': vm.dayConfig.textColor}">{{::vm.dayConfig.dayOfWeek}}</h4>
       </div>
 
-      <div class="card-body"></div>
+      <div class="card-body" ng-style="{'color': vm.dayConfig.textColor}">
+        <p class="temp">{{vm.tempMax}} <span>&deg;</span></p>
+        <p class="city">{{vm.city}}</p>
+      </div>
 
     </div>
-  </div>
 
-  <div class="events-container">
-    <div class="card animate-fade card-event" ng-repeat="event in vm.events">
-      <div class="card-inner">
-        <div class="card-header">
-          <h3 ng-style="{'color': day.textColor}">{{::event.summary}}</h3>
-          <h4><strong>From: </strong>{{event.start.dateTime | amDateFormat:'h:mm a'}} </h4>
-          <h4><strong>To: </strong>{{event.end.dateTime | amDateFormat:'h:mm a'}} </h4>
+    <div class="events-container">
+      <div class="card animate-fade card-event" ng-repeat="event in vm.events">
+        <div class="card-inner">
+          <div class="card-header">
+            <h3 ng-style="{'color': day.textColor}">{{::event.summary}}</h3>
+            <div class="event-time">
+              <p>
+                <strong>From: </strong>{{event.start.dateTime | amDateFormat:'h:mm a'}}
+                <br />
+                <strong>To: </strong>{{event.end.dateTime | amDateFormat:'h:mm a'}}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+
 </div>

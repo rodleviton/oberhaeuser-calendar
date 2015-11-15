@@ -29,7 +29,7 @@ export default chart => {
       var TOTAL_SEGMENTS = 48; // Total number of segments for each chart ring
       var DURATION = 1000;
       var DELAY = 1000;
-      var BASE_UNIT = ($window.innerHeight > 1000) ? ($window.innerHeight - 100) : 1000;
+      var BASE_UNIT = ($window.innerHeight > 1000) ? (($window.innerHeight - 100) - 20) : 1000;
       var t = 2 * Math.PI;
 
       // VARS

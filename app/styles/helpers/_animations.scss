@@ -20,6 +20,27 @@
   opacity: 1;
 }
 
+// Fade in down
+.animate-fade-in-down.ng-enter {
+  transition: 250ms ease all;
+  transform: translate3d(0, -100%, 0);
+  opacity: 0;
+}
+.animate-fade-in-down.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive enter animation */
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+
+  /* in case the stagger doesn't work then these two values
+     must be set to 0 to avoid an accidental CSS inheritance */
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+.animate-fade-in-down.ng-enter.ng-enter-active {
+  opacity: 1;
+  transform: none;
+}
+
 ////////////////////////////////////////////////
 // Slide Up Enter
 ////////////////////////////////////////////////
