@@ -12,7 +12,6 @@
     display: block;
     font-size: em(18px);
     font-weight: 400;
-    color: #fff;
     line-height: 1.5em;
   }
   .events {
@@ -20,8 +19,33 @@
     padding-top: 20px;
   }
 }
+.theme-2012 {
+  .federal-holidays {
+    color: #18171c;
+    hr {
+      border-top: 10px solid #18171c;
+    }
+  }
+  .events {
+    li {
+      a {
+        display: inline-block;
+        line-height: 2em;
+        color: #ccc;
+        span {
+          color: #666;
+        }
+        &:hover {
+          cursor: pointer;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
 .theme-2013 {
   .federal-holidays {
+    color: #fff;
     hr {
       border-top: 10px solid #fff;
     }
@@ -45,6 +69,7 @@
 }
 .theme-2015 {
   .federal-holidays {
+    color: #fff;
     hr {
       border-top: 1px dotted #fff;
     }

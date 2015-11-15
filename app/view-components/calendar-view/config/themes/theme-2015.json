@@ -14,8 +14,7 @@
     "SEGMENT_TEXT_HIGHLIGHT": "ffffff"
   },
   "stamp": {
-    "COLOR_BACKGROUND": "#142956",
-    "TEXT_BASE": "#ffffff"
+    "LOGO": "logo-2015.svg"
   },
   "events": {
 

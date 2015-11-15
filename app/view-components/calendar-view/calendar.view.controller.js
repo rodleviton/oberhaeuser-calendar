@@ -60,7 +60,7 @@
      }
 
      function getTheme() {
-       var themes = ['2013', '2015'];
+       var themes = ['2012', '2013', '2015'];
        var theme = '2015';
        var currentYear = String(vm.activeYear);
 

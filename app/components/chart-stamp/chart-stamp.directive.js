@@ -9,7 +9,7 @@ export default chartStamp => {
 
     var directive = {
       restrict: 'AE',
-      replace: false,
+      replace: true,
       template: require('./chart-stamp.tmpl.html'),
       scope: {
         config: '='
@@ -20,7 +20,7 @@ export default chartStamp => {
     return directive;
 
     function link(scope, element, attrs) {
-
+      element.attr('data', 'images/' + scope.config.LOGO);
     }
   });
 };

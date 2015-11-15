@@ -11,6 +11,22 @@
   }
 }
 
+.theme-2012 {
+  #calendarHeader {
+    hr {
+      display: none;
+    }
+
+    a, a:visited {
+      color: $dark-gray;
+
+      &:hover, &:focus {
+        color: #ccc;
+      }
+    }
+  }
+}
+
 .theme-2013 {
   #calendarHeader {
     hr {
