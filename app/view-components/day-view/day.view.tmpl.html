@@ -20,8 +20,8 @@
   </div>
 
   <div class="events-container">
-    <div class="card animate-fade" ng-repeat="event in vm.events">
-      <div class="card-inner" ng-style="{'background': vm.shade(day, $index)}">
+    <div class="card animate-fade card-event" ng-repeat="event in vm.events">
+      <div class="card-inner">
         <div class="card-header">
           <h3 ng-style="{'color': day.textColor}">{{::event.summary}}</h3>
           <h4><strong>From: </strong>{{event.start.dateTime | amDateFormat:'h:mm a'}} </h4>

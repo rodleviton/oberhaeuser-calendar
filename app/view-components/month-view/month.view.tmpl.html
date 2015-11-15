@@ -1,14 +1,8 @@
 <div id="calendarMonthView" class="container overlay-view">
   <div class="lightbox"></div>
 
-
   <div class="lightbox-content caledar-month-view">
-    <header class="header">
-      <h1><strong>{{::vm.monthLabel}}</strong> {{::vm.year}}</h1>
-
-      <button class="btn-close" ng-click="vm.closeView()">&times;</button>
-    </header>
-
+    <button class="btn-close" ng-click="vm.closeView()">&times;</button>
     <div class="card-grid">
       <a ng-click="vm.viewDay(day.day)" ng-repeat="day in vm.monthConfig" class="card card-grid-item animate-fade" ng-style="{'background': vm.shade(day, $index)}">
         <div class="card-hover-bg"></div>

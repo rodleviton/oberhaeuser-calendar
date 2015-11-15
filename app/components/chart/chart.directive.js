@@ -197,10 +197,12 @@ export default chart => {
                 }
               })
               .on('click', function (d) {
-                $state.go('calendar.month.day', {
-                  day: d.data.day,
-                  month: d.data.month
-                });
+                if (d.data.isActive) {
+                  $state.go('calendar.month.day', {
+                    day: d.data.day,
+                    month: d.data.month
+                  });
+                }
               });
 
             addMonthLabels(group, index);
