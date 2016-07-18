@@ -2,4 +2,10 @@
 
 Beautiful calendar concept inspired by the work of [Bureau Oberhaeuser](https://www.behance.net/gallery/oberhaeuserinfo-calendar-2013/5761467)
 
-[View demo here](http://www.rodneyleviton.com/calendar/#/2015)
+![Calendar Preview](https://github.com/rodleviton/calendar/blob/master/calendar-preview.png)
+
+[2013 Demo](http://www.rodneyleviton.com/calendar/#/2013)
+
+[2014 Demo](http://www.rodneyleviton.com/calendar/#/2014)
+
+[2015 Demo](http://www.rodneyleviton.com/calendar/#/2015)
