@@ -4,7 +4,7 @@ Beautiful calendar concept inspired by the work of [Bureau Oberhaeuser](https://
 
 ![Calendar Preview](https://github.com/rodleviton/calendar/blob/master/calendar-preview.png)
 
-[2013 Demo](http://www.rodneyleviton.com/calendar/#/2013)
+[2012 Demo](http://www.rodneyleviton.com/calendar/#/2012)
 
 [2014 Demo](http://www.rodneyleviton.com/calendar/#/2014)
 
