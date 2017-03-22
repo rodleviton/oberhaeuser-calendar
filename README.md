@@ -6,8 +6,8 @@ Created using [D3](https://d3js.org/), [AngularJs](https://angularjs.org/) and t
 
 ![Calendar Preview](https://github.com/rodleviton/calendar/blob/master/calendar-preview.png)
 
-[2012 Demo](http://www.rodneyleviton.com/oberhaeuser-calendar/#/2012)
+[2012 Demo](https://oberhaeuser.rodneyleviton.com/#/2012)
 
-[2014 Demo](http://www.rodneyleviton.com/oberhaeuser-calendar/#/2014)
+[2014 Demo](https://oberhaeuser.rodneyleviton.com/#/2014)
 
-[2015 Demo](http://www.rodneyleviton.com/oberhaeuser-calendar/#/2015)
+[2015 Demo](https://oberhaeuser.rodneyleviton.com/#/2015)
