@@ -1,0 +1,36 @@
+<!doctype html>
+<html ng-app=app lang="">
+
+<head lang=en>
+  <meta charset=UTF-8>
+  <meta http-equiv=x-ua-compatible content="ie=edge">
+  <title>Calendar :: Oberhaeuser Calendar Concept</title>
+  <meta name=viewport content="width=device-width,initial-scale=1">
+
+
+  <script src=https://use.typekit.net/pij7rez.js></script>
+  <script>
+    try {
+      Typekit.load({
+        async: true
+      });
+    } catch (e) {}
+  </script>
+<link rel="shortcut icon" href=favicon.ico><link href=main.css?8cd480ef354e0c8301bdc33a62d37124 rel=stylesheet></head>
+
+<body>
+
+  <ui-view class=ui-view-calendar></ui-view>
+
+  <script>
+    function init() {
+      setTimeout(function() {
+        window.initGapi();
+      }, 1000);
+    }
+  </script>
+  <script src="https://apis.google.com/js/client.js?onload=init"></script>
+
+<script src=bundle.js></script></body>
+
+</html>

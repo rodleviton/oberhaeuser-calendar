@@ -54,7 +54,9 @@ module.exports = function (options) {
       extraFiles: 'app/images/logo-2015.svg',
       template: 'app/index.html',
       favicon: 'app/favicons/favicon.ico',
-      minify: true
+      minify: {
+        removeAttributeQuotes: true
+      }
     })
   ];
 
@@ -106,7 +108,8 @@ module.exports = function (options) {
 
     output: {
       path: PATHS.build,
-      filename: 'bundle.js'
+      filename: "bundle.js",
+      publicPath: ""
     },
 
     resolve: {

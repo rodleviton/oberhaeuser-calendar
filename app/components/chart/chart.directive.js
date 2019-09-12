@@ -35,88 +35,6 @@ export default chart => {
       // VARS
       var dataset = [];
 
-      function setup() {
-        // Make dataset available to service
-        ChartService.setCalendarConfig(scope.config.calendar);
-        ChartService.setChartConfig(dataset);
-        ChartService.setEventsConfig(scope.config.events);
-        ChartService.setDefaultsConfig(scope.config.defaults);
-
-        // Chart
-        configureDataset();
-        Chart.create();
-
-        // Animations
-        Chart.animateIn();
-      }
-
-      ///////////////////////////////////////////////////////////
-      // CONFIGURATION
-      ///////////////////////////////////////////////////////////
-
-      /**
-       * Configure calendar dataset
-       */
-      function configureDataset() {
-        angular.forEach(scope.config.calendar, function (month, index) {
-          dataset[index] = []; // Add empty array at current month index
-          configureSegments(month, index);
-        });
-
-        addMarkers();
-      }
-
-      function configureSegments(month, index) {
-        var currentDayIndex = month.startIndex;
-
-        for (var i = 0; i <= TOTAL_SEGMENTS; i++) {
-
-          // Local vars
-          var fillColor = 'none';
-          var textColor = month.textColor;
-          var segmentLabel = '';
-          var isActive = false;
-          var itemDate = '';
-          var dayOfWeek = '';
-
-          if (i < month.startIndex) {
-            // Shade offset segments same color as chartRing
-            fillColor = scope.config.defaults.COLOR_FOREGROUND;
-
-          } else if (i < (month.days + month.startIndex)) {
-
-            isActive = true;
-            itemDate = getSegmentDate(i, month.index, month.startIndex);
-            segmentLabel = getSegmentLabel(i);
-            fillColor = getFillColor(currentDayIndex, month.fillColor);
-
-            // Increment current day index
-            currentDayIndex = getDayOfWeekIndex(currentDayIndex);
-            dayOfWeek = DEFAULTS.DAYS_OF_WEEK[currentDayIndex];
-          } else if (i <= DISPLAY_SEGMENTS) {
-            fillColor = scope.config.defaults.COLOR_FOREGROUND;
-          }
-
-          dataset[index].push({
-            count: (100 / 40),
-            isActive: isActive,
-            fillColor: fillColor,
-            textColor: textColor,
-            label: segmentLabel,
-            date: new Date(itemDate),
-            day: Utilities.getDaySlug(((i + 1) - month.startIndex)),
-            month: Utilities.getMonthSlug((month.index + 1)),
-            year: scope.config.year,
-            dayOfWeek: dayOfWeek
-          });
-        }
-      }
-
-      function addMarkers() {
-        ChartService.markCurrentDay();
-        ChartService.markEvents();
-      }
-
       ///////////////////////////////////////////////////////////
       // CHART CREATION
       ///////////////////////////////////////////////////////////
@@ -303,6 +221,88 @@ export default chart => {
           animateOut: animateOut
         };
       })();
+
+      function setup() {
+        // Make dataset available to service
+        ChartService.setCalendarConfig(scope.config.calendar);
+        ChartService.setChartConfig(dataset);
+        ChartService.setEventsConfig(scope.config.events);
+        ChartService.setDefaultsConfig(scope.config.defaults);
+
+        // Chart
+        configureDataset();
+        Chart.create();
+
+        // Animations
+        Chart.animateIn();
+      }
+
+      ///////////////////////////////////////////////////////////
+      // CONFIGURATION
+      ///////////////////////////////////////////////////////////
+
+      /**
+       * Configure calendar dataset
+       */
+      function configureDataset() {
+        angular.forEach(scope.config.calendar, function (month, index) {
+          dataset[index] = []; // Add empty array at current month index
+          configureSegments(month, index);
+        });
+
+        addMarkers();
+      }
+
+      function configureSegments(month, index) {
+        var currentDayIndex = month.startIndex;
+
+        for (var i = 0; i <= TOTAL_SEGMENTS; i++) {
+
+          // Local vars
+          var fillColor = 'none';
+          var textColor = month.textColor;
+          var segmentLabel = '';
+          var isActive = false;
+          var itemDate = '';
+          var dayOfWeek = '';
+
+          if (i < month.startIndex) {
+            // Shade offset segments same color as chartRing
+            fillColor = scope.config.defaults.COLOR_FOREGROUND;
+
+          } else if (i < (month.days + month.startIndex)) {
+
+            isActive = true;
+            itemDate = getSegmentDate(i, month.index, month.startIndex);
+            segmentLabel = getSegmentLabel(i);
+            fillColor = getFillColor(currentDayIndex, month.fillColor);
+
+            // Increment current day index
+            currentDayIndex = getDayOfWeekIndex(currentDayIndex);
+            dayOfWeek = DEFAULTS.DAYS_OF_WEEK[currentDayIndex];
+          } else if (i <= DISPLAY_SEGMENTS) {
+            fillColor = scope.config.defaults.COLOR_FOREGROUND;
+          }
+
+          dataset[index].push({
+            count: (100 / 40),
+            isActive: isActive,
+            fillColor: fillColor,
+            textColor: textColor,
+            label: segmentLabel,
+            date: new Date(itemDate),
+            day: Utilities.getDaySlug(((i + 1) - month.startIndex)),
+            month: Utilities.getMonthSlug((month.index + 1)),
+            year: scope.config.year,
+            dayOfWeek: dayOfWeek
+          });
+        }
+      }
+
+      function addMarkers() {
+        ChartService.markCurrentDay();
+        ChartService.markEvents();
+      }
 
       //////////////////////////////////////////////////////////////////////
       // HELPERS
