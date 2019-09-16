@@ -22,23 +22,16 @@ export default chartLabels => {
 
       var screenWidth = window.innerWidth;
 
-      var margin = {
-        left: 20,
-        top: 20,
-        right: 20,
-        bottom: 20
-      };
-
       // Constants
       var DISPLAY_SEGMENTS = 39; // Total segments to display on screen
       var TOTAL_SEGMENTS = 48;
-      var BASE_UNIT = ($window.innerHeight > 1000) ? (($window.innerHeight - 100) - 20) : 1000;
+      var BASE_UNIT = 1000;
 
       // Vars
       var dayOfWeekIndex = 0;
       var donutData = [];
-      var width = (BASE_UNIT + 100);
-      var height = (BASE_UNIT + 100);
+      var width = (BASE_UNIT + 50);
+      var height = (BASE_UNIT + 50);
       var innerRadius = ((BASE_UNIT / 2) - 20);
       var outerRadius = (BASE_UNIT / 2);
 
@@ -53,14 +46,14 @@ export default chartLabels => {
       ];
 
       element.addClass('calendar-chart-labels');
-      angular.element(element).css('left', -50 + 'px');
-      angular.element(element).css('top', -50 + 'px');
 
       var svg = d3.select(element[0]).append('svg')
         .attr('width', width)
         .attr('height', height)
+        .style('margin', '-25px')
         .append('g')
-        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+        .style('transform', 'translate(50%, 50%)');
+       
 
       //////////////////////////////////////////////////////////////
       ///////////////////// Data &  Scales /////////////////////////

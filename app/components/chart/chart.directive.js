@@ -24,12 +24,11 @@ export default chart => {
 
       // CONSTANTS
       var DAYS_OF_WEEK = 7;
-      var MAX_DAYS = 31;
       var DISPLAY_SEGMENTS = 39; // Total segments to display on screen
       var TOTAL_SEGMENTS = 48; // Total number of segments for each chart ring
       var DURATION = 1000;
       var DELAY = 1000;
-      var BASE_UNIT = ($window.innerHeight > 1000) ? (($window.innerHeight - 100) - 20) : 1000;
+      var BASE_UNIT = 1000;
       var t = 2 * Math.PI;
 
       // VARS
@@ -63,8 +62,6 @@ export default chart => {
           chartRing = d3.select(element[0]).append('svg')
             .attr('width', width)
             .attr('height', height)
-            .style('margin-top', (offset / 2) + 'px')
-            .style('margin-left', (offset / 2) + 'px')
             .attr('class', 'calendar-chart-ring')
             .attr('viewBox', '0 0 ' + width + ' ' + width)
             .append('g')

@@ -1,25 +1,10 @@
 <div id="calendarView" class="container" ng-style="{'background': vm.theme.defaults.COLOR_BACKGROUND}">
-  <section>
-
-    <aside>
-      <calendar-header year="vm.activeYear"></calendar-header>
-      <events config="vm.config.events">
-        <event-item ng-repeat="event in vm.config.events" label="event.label" date="event.date"></event-item>
-      </events>
-    </aside>
-
-    <article>
-      <div class="calendar">
-        <div chart-labels>
-          <chart-stamp config="vm.stampConfig"></chart-stamp>
-        </div>
-        <div class="chart-rings-container">
-          <chart config="vm.config"></chart>
-        </div>
-      </div>
-    </article>
-
-  </section>
-
-  <div ui-view class="ui-view-container ui-view-month animate-view-fade"></div>
+  <div class="calendar">
+    <div chart-labels>
+      <chart-stamp config="vm.stampConfig"></chart-stamp>
+    </div>
+    <div class="chart-rings-container">
+      <chart config="vm.config"></chart>
+    </div>
+  </div>
 </div>
