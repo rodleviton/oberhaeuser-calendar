@@ -50,10 +50,9 @@ export default chartLabels => {
       var svg = d3.select(element[0]).append('svg')
         .attr('width', width)
         .attr('height', height)
-        .style('margin', '-25px')
+        .attr('class', 'chart-labels-container')
         .append('g')
         .style('transform', 'translate(50%, 50%)');
-       
 
       //////////////////////////////////////////////////////////////
       ///////////////////// Data &  Scales /////////////////////////
