@@ -57,7 +57,7 @@
     "webpack-dev-server": "^1.10.1"
   },
   "dependencies": {
-    "angular": "^1.4.7",
+    "angular": "^1.7.9",
     "angular-animate": "^1.4.7",
     "angular-aria": "^1.4.7",
     "angular-moment": "^0.10.3",
