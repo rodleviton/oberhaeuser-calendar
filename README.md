@@ -4,10 +4,7 @@ Beautiful calendar concept inspired by the work of [Bureau Oberhaeuser](https://
 
 Created using [D3](https://d3js.org/), [AngularJs](https://angularjs.org/) and the [Google Calendar API](https://developers.google.com/google-apps/calendar/).
 
+
+[Demo](https://reactivepixels.com/rodleviton/pixels/WmKU2C7XU88Z5RE5R38d)
+
 ![Calendar Preview](https://github.com/rodleviton/calendar/blob/master/calendar-preview.png)
-
-[2012 Demo](https://oberhaeuser.rodneyleviton.com/#/2012)
-
-[2013 Demo](https://oberhaeuser.rodneyleviton.com/#/2013)
-
-[2015 Demo](https://oberhaeuser.rodneyleviton.com/#/2015)
