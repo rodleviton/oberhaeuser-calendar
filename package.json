@@ -46,7 +46,7 @@
     "ng-annotate-loader": "0.0.6",
     "nib": "^1.1.0",
     "node-libs-browser": "^0.5.2",
-    "node-sass": "^3.2.0",
+    "node-sass": "^4.13.1",
     "phantomjs": "^1.9.17",
     "raw-loader": "^0.5.1",
     "sass-loader": "^1.0.2",
